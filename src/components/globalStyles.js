@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
-import { FlexoBold } from "../assets/fonts/Flexo-Bold.ttf";
-import { FlexoRegular } from "../assets/fonts/Flexo-Regular.ttf";
-import { FlexoItalic } from "../assets/fonts/Flexo-It.ttf";
+import FlexoBold from "../assets/fonts/Flexo-Bold.ttf";
+import FlexoRegular from "../assets/fonts/Flexo-Regular.ttf";
+import FlexoItalic from "../assets/fonts/Flexo-It.ttf";
 
 
 export const GlobalStyle = createGlobalStyle`
