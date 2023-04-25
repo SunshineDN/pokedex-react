@@ -8,6 +8,15 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  @keyframes appear {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 `;
 
 export const FormContainer = styled.div`
@@ -17,6 +26,8 @@ export const FormContainer = styled.div`
   height: 420px;
   border-radius: 8px;
   overflow: hidden;
+  
+  animation: appear 0.5s ease-in-out forwards;
 
   @keyframes pulse {
     0% {
