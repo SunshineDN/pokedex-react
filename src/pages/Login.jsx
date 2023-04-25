@@ -11,7 +11,8 @@ import {
   Redirect,
   Links,
   Container,
-} from "../components/LoginForm";
+  Button,
+} from "../components/Form";
 
 const Login = () => {
   return (
@@ -30,10 +31,10 @@ const Login = () => {
             <I></I>
           </InputBox>
           <Links>
-            <Redirect to={"/forgot"}>Forgot password</Redirect>
-            <Redirect to={"/register"}>Signup</Redirect>
+            <Redirect to={"/forgot"}>Forgot your password?</Redirect>
+            <Redirect to={"/register"}>Sign up</Redirect>
           </Links>
-          <Input type="submit" value="Login" />
+          <Button type="submit">Login</Button>
         </FormWrapper>
       </FormContainer>
     </Container>

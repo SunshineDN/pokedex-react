@@ -9,26 +9,23 @@ export const Container = styled.div`
   height: 100vh;
 
   & > div {
-    height: 600px;
+    height: 350px;
 
     &::before {
-        background: none;
+      background: none;
     }
 
     &::after {
-        top: 0;
-        left: 0;
-        height: 600px;
-        background: radial-gradient(circle, transparent, #f25e5e);
-        animation: pulse 3s linear infinite;
-        transform-origin: center ;
+      height: 350px;
+      background: linear-gradient(0deg, transparent, transparent, #f25e5e, #f25e5e, #f25e5e);
+      animation: animate 3s linear infinite;
     }
   }
 
- & a {
+  & a {
     text-decoration: underline;
     font-size: 1em;
- }
+  }
 `;
 
 export const Span = styled.span`
@@ -36,4 +33,9 @@ export const Span = styled.span`
   color: #8f8f8f;
   font-size: 0.75em;
   text-decoration: none;
+
+  &:nth-child(2) {
+    font-size: 0.8em;
+    text-align: center;
+  }
 `;
