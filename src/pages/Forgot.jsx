@@ -20,14 +20,14 @@ const Forgot = () => {
       <FormContainer>
         <FormWrapper>
           <FormTitle>Forgot password</FormTitle>
-          <Span>Enter your email address and we'll send you a link to reset your password.</Span>
+          <Span>Enter your email address and we&apos;ll send you a link to reset your password.</Span>
           <InputBox>
             <Input type="email" required />
             <LabelSpan>Email</LabelSpan>
             <I></I>
           </InputBox>
           <Links>
-            <Span>Don't have an account? <Redirect to={"/register"}>Sign up</Redirect></Span>
+            <Span>Don&apos;t have an account? <Redirect to={"/register"}>Sign up</Redirect></Span>
           </Links>
           <Button type="submit">Send</Button>
         </FormWrapper>
