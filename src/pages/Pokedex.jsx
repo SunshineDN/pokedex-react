@@ -15,7 +15,7 @@ const Pokedex = () => {
       } else {
         navigate('/')
       }
-    }, 2000)
+    }, 2500)
     return () => clearTimeout(timer)
   }, [])
 

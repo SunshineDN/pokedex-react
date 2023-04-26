@@ -17,12 +17,16 @@
 
 #top1 {
     transform-origin: bottom center;
-    animation: move_top1 ease-out 1.2s;
+    animation: move_top1 ease-out 1.9s;
     animation-iteration-count: infinite;
 }
 
 @keyframes move_top1 {
     0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    15% {
         transform: translate(0, 0) scale(1) rotate(0deg);
     }
 
@@ -37,12 +41,16 @@
 
 #top2 {
     transform-origin: bottom left;
-    animation: move_top2 ease-out 1.2s;
+    animation: move_top2 ease-out 1.9s;
     animation-iteration-count: infinite;
 }
 
 @keyframes move_top2 {
     0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    15% {
         transform: translate(0, 0) scale(1) rotate(0deg);
     }
 
@@ -57,12 +65,16 @@
 
 #bottom1 {
     transform-origin: top center;
-    animation: move_bottom1 ease-out 1.2s;
+    animation: move_bottom1 ease-out 1.9s;
     animation-iteration-count: infinite;
 }
 
 @keyframes move_bottom1 {
     0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    15% {
         transform: translate(0, 0) scale(1) rotate(0deg);
     }
 
@@ -77,12 +89,16 @@
 
 #bottom2 {
     transform-origin: top left;
-    animation: move_bottom2 ease-out 1.2s;
+    animation: move_bottom2 ease-out 1.9s;
     animation-iteration-count: infinite;
 }
 
 @keyframes move_bottom2 {
     0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    15% {
         transform: translate(0, 0) scale(1) rotate(0deg);
     }
 
@@ -97,12 +113,16 @@
 
 #bottom3 {
     transform-origin: top right;
-    animation: move_bottom3 ease-out 1.2s;
+    animation: move_bottom3 ease-out 1.9s;
     animation-iteration-count: infinite;
 }
 
 @keyframes move_bottom3 {
     0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    15% {
         transform: translate(0, 0) scale(1) rotate(0deg);
     }
 
@@ -117,12 +137,16 @@
 
 #bottom4 {
     transform-origin: top left;
-    animation: move_bottom4 ease-out 1.2s;
+    animation: move_bottom4 ease-out 1.9s;
     animation-iteration-count: infinite;
 }
 
 @keyframes move_bottom4 {
     0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    15% {
         transform: translate(0, 0) scale(1) rotate(0deg);
     }
 
@@ -137,7 +161,7 @@
 
 svg {
     width: 100px;
-    animation: animationFrames ease-in-out 1.2s;
+    animation: animationFrames ease-in-out 1.9s;
     animation-delay: 0.05s;
     animation-iteration-count: infinite;
     transform-origin: 50% 50%;
