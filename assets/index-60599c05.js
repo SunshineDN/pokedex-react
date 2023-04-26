@@ -279,7 +279,7 @@ Error generating stack: `+o.message+`
 `;const m1=({position:e})=>N.jsx(h1,{position:e,children:N.jsx(p1,{})}),v1=Pe.div`
     background-color: #1f1f1f;
     height: 100vh;
-`,g1=()=>{const e=yd();return E.useEffect(()=>{const t=localStorage.getItem("token"),n=setTimeout(()=>{e(t?"/":"/login")},2e3);return()=>clearTimeout(n)},[]),N.jsx(v1,{children:N.jsx(m1,{position:"absolute"})})},y1=Pe.div`
+`,g1=()=>{const e=yd();return E.useEffect(()=>{const t=localStorage.getItem("token"),n=setTimeout(()=>{e(t?"/":"/login")},2500);return()=>clearTimeout(n)},[]),N.jsx(v1,{children:N.jsx(m1,{position:"absolute"})})},y1=Pe.div`
   background-color: #1f1f1f;
   display: flex;
   justify-content: center;
