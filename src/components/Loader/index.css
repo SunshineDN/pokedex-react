@@ -159,7 +159,7 @@
     }
 }
 
-svg {
+#Ebene_1 {
     width: 100px;
     animation: animationFrames ease-in-out 1.9s;
     animation-delay: 0.05s;
@@ -167,8 +167,8 @@ svg {
     transform-origin: 50% 50%;
 }
 
-svg path,
-svg circle {
+#Ebene_1 path,
+#Ebene_1 circle {
     fill: #fff;
 }
 

@@ -16,7 +16,9 @@
     "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
+    "react-scroll": "^1.8.9",
     "styled-components": "^5.3.10",
     "vite-plugin-svgr": "^2.4.0"
   },

@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import FlexoBold from "../assets/fonts/Flexo-Bold.ttf";
 import FlexoRegular from "../assets/fonts/Flexo-Regular.ttf";
 import FlexoItalic from "../assets/fonts/Flexo-It.ttf";
+import PokemonSolid from "../assets/fonts/PokemonSolid.ttf";
 
 
 export const GlobalStyle = createGlobalStyle`
@@ -24,6 +25,13 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Flexo Bold';
         src: url(${FlexoBold}) format('truetype');
         font-weight: 700;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Pokemon Solid';
+        src: url(${PokemonSolid}) format('truetype');
+        font-weight: 400;
         font-style: normal;
     }
 

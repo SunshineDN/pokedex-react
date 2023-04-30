@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  background-color: #1f1f1f;
+  background-color: #1A1A1A;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@ export const Container = styled.div`
 
 export const FormContainer = styled.div`
   position: relative;
-  background-color: #1c1c1c;
+  background-color: #171717;
   width: 380px;
   height: 420px;
   border-radius: 8px;
@@ -80,7 +80,7 @@ export const FormContainer = styled.div`
 export const FormWrapper = styled.form`
   position: absolute;
   inset: 4px;
-  background: #222;
+  background: #1A1A1A;
   padding: 50px 40px;
   border-radius: 8px;
   z-index: 2;
@@ -91,7 +91,7 @@ export const FormWrapper = styled.form`
 export const FormTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
+  color: #f5f5f5;
   text-align: center;
   letter-spacing: 0.1em;
 `;
@@ -121,7 +121,7 @@ export const I = styled.i`
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: #fff;
+  background: #f5f5f5;
   overflow: hidden;
   transition: 0.5s;
   pointer-events: none;
@@ -143,7 +143,7 @@ export const Input = styled.input`
   z-index: 10;
 
   &:valid ~ ${LabelSpan}, &:focus ~ ${LabelSpan} {
-    color: #fff;
+    color: #f5f5f5;
     font-size: 0.75em;
     transform: translateY(-34px);
   }
@@ -165,7 +165,7 @@ export const Redirect = styled(Link)`
   text-decoration: none;
 
   &:hover, &:nth-child(2) {
-    color: #fff;
+    color: #f5f5f5;
   }
 `;
 
@@ -173,7 +173,7 @@ export const Button = styled.button`
   border: none;
   outline: none;
   padding: 9px 25px;
-  background: #fff;
+  background: #f5f5f5;
   cursor: pointer;
   border-radius: 4px;
   font-size: 0.9em;

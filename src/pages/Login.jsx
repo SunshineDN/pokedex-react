@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   FormContainer,
   FormWrapper,
@@ -15,6 +17,8 @@ import {
 } from "../components/Form";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <FormContainer>
@@ -34,7 +38,7 @@ const Login = () => {
             <Redirect to={"/forgot"}>Forgot your password?</Redirect>
             <Redirect to={"/register"}>Sign up</Redirect>
           </Links>
-          <Button type="submit">Login</Button>
+          <Button type="submit" onClick={() => navigate('/home')}>Login</Button>
         </FormWrapper>
       </FormContainer>
     </Container>
