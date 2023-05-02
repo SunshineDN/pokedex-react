@@ -70,7 +70,7 @@ export const SearchButton = styled.button`
     cursor: pointer;
     border-radius: 8px;
 
-    &:hover, &:focus {
+    &:hover, &:active {
         background-color: #3CA1CC;
     }
 `;

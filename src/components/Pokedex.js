@@ -73,11 +73,12 @@ export const PokedexCardName = styled.h2`
     text-transform: capitalize;
 `;
 
-export const PokedexCardImg = styled.div`
-    background-image: url(${props => props.image});
-    background-repeat: no-repeat;
+export const PokedexCardImg = styled.div.attrs(props => ({
+    style: {
+        backgroundImage: `url(${props.image})`
+    }
+    }))`
     background-size: contain;
-    background-position: center;
     width: 100px;
     height: 100px;
     position: absolute;

@@ -34,11 +34,26 @@ import { scroller } from "react-scroll";
 
 const Home = () => {
   const [pokemons, setPokemons] = useState([]);
+  const [pokemonsBkp, setPokemonsBkp] = useState([]);
+
   const navigate = useNavigate();
   const { id } = useParams();
+  const [search, setSearch] = useState("");
+
+  function handleSearchPokemon() {
+    const filter = pokemonsBkp.filter((pokemon) => {
+      return pokemon.name.toLowerCase().includes(search.toLowerCase()) === true
+    });
+
+    if(filter.length === 0) {
+      alert('Pokemon não encontrado');
+      return;
+    }
+
+    setPokemons(filter);
+  }
 
   useEffect(() => {
-    
     const timer = setTimeout(() => {
       if(id) {
         scroller.scrollTo(id, {
@@ -47,18 +62,19 @@ const Home = () => {
           offset: -80,
         });
       }
-    }, 40);
+    }, 100);
     const getPokemons = async () => {
-      fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+      fetch("https://pokeapi.co/api/v2/pokemon?limit=250")
         .then((response) => response.json())
         .then((data) => {
           setPokemons(data.results);
+          setPokemonsBkp(data.results);
         });
     };
     getPokemons();
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [id]);
 
   return (
     <Container>
@@ -84,22 +100,26 @@ const Home = () => {
           <SearchContainer>
             <SearchTitle>What Pokémon are you looking for?</SearchTitle>
             <SearchInputBox>
-                <SearchInput type="text" placeholder="Search" />
+                <SearchInput type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
                 <SearchIcon />
-                <SearchButton>Search</SearchButton>
+                <SearchButton onClick={
+                  () => {
+                    handleSearchPokemon();
+                  }
+                }>Search</SearchButton>
             </SearchInputBox>
           </SearchContainer>
           <PokedexContainer>
             <PokedexTitle>Todos os pokémons</PokedexTitle>
             <PokedexCardsContainer>
-                {pokemons.map((pokemon, index) => (
-                  <LinkPokemon to={`/pokemon/${index + 1}`} key={index + 1} id={index + 1}>
+                {pokemons.map((pokemon) => (
+                  <LinkPokemon to={`/pokemon/${pokemon.url.split('/')[6]}`} key={pokemon.url.split('/')[6]} id={pokemon.url.split('/')[6]}>
                     <PokedexCard>
-                      <PokedexCardId>#{index + 1}</PokedexCardId>
+                      <PokedexCardId>#{pokemon.url.split('/')[6]}</PokedexCardId>
                       <PokedexCardName>{pokemon.name}</PokedexCardName>
                       <PokedexCardImg
                           image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
-                          index + 1
+                          pokemon.url.split('/')[6]
                           }.png`}
                           alt={pokemon.name}
                       />
