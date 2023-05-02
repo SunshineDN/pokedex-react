@@ -1,7 +1,12 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+export const LinkPokemon = styled(Link)`
+    text-decoration: none;
+`;
 
 export const PokedexContainer = styled.div`
-    background-color: #1A1A1A;
+    background-color: ${({ theme }) => theme.colors.background};
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -12,7 +17,7 @@ export const PokedexContainer = styled.div`
 `;
 
 export const PokedexTitle = styled.h1`
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 1rem;
     font-weight: 400;
     text-decoration: none;
@@ -22,7 +27,7 @@ export const PokedexTitle = styled.h1`
 `;
 
 export const PokedexCardsContainer = styled.div`
-    background-color: #1A1A1A;
+    background-color: ${({ theme }) => theme.colors.background};
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -35,7 +40,7 @@ export const PokedexCardsContainer = styled.div`
 `;
 
 export const PokedexCard = styled.div`
-    background-color: #1F1F1F;
+    background-color: ${({ theme }) => theme.colors.containerHighlight};
     width: 109px;
     height: 109px;
     display: flex;
@@ -46,17 +51,22 @@ export const PokedexCard = styled.div`
     position: relative;
     z-index: 1;
     overflow: hidden;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        background-color: ${({ theme }) => theme.colors.containerHighlightHover};
+    }
 `;
 
 export const PokedexCardId = styled.p`
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: .65rem;
     font-weight: 700;
     text-align: left;
 `;
 
 export const PokedexCardName = styled.h2`
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: .65rem;
     font-weight: 400;
     text-align: left;

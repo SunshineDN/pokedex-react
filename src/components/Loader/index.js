@@ -7,8 +7,13 @@ export const LoaderContainer = styled.div`
     transform: translate(-50%, -50%); */
     height: 100vh;
     width: 100%;
-    background-color: #1A1A1A;
+    background-color: ${({ theme }) => theme.colors.background};
     display: flex;
     justify-content: center;
     align-items: center;
+
+    & > #Ebene_1 path,
+    #Ebene_1 circle {
+        fill: ${({ theme }) => theme.colors.primary};
+    }
 `;

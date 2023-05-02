@@ -6,6 +6,7 @@ import Register from "./pages/Register"
 import Forgot from "./pages/Forgot"
 import Validation from "./pages/Validation"
 import Home from "./pages/Home"
+import PokemonDetails from "./pages/PokemonDetails"
 
 function App() {
 
@@ -28,7 +29,6 @@ function App() {
   }
 
   return (
-    
       <HashRouter>
         <Routes>
           <Route path="/" element={<Validation isLogged={isLogged} />} />
@@ -36,6 +36,8 @@ function App() {
           <Route path="login" element={<Login />} users={users} handleLogin={handleLogin} />
           <Route path="forgot" element={<Forgot />} users={users} />
           <Route path="home" element={<Home /> } />
+          <Route path="home/:id" element={<Home /> } />
+          <Route path="pokemon/:id" element={<PokemonDetails />} />
         </Routes>
       </HashRouter>
   )

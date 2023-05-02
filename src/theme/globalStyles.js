@@ -5,7 +5,6 @@ import FlexoRegular from "../assets/fonts/Flexo-Regular.ttf";
 import FlexoItalic from "../assets/fonts/Flexo-It.ttf";
 import PokemonSolid from "../assets/fonts/PokemonSolid.ttf";
 
-
 export const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: 'Flexo Regular';

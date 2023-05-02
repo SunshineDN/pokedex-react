@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
-  background-color: #1A1A1A;
+  background-color: ${({ theme }) => theme.colors.background};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@ export const Container = styled.div`
 
 export const FormContainer = styled.div`
   position: relative;
-  background-color: #171717;
+  background-color: ${({ theme }) => theme.colors.formBackside};
   width: 380px;
   height: 420px;
   border-radius: 8px;
@@ -80,7 +80,7 @@ export const FormContainer = styled.div`
 export const FormWrapper = styled.form`
   position: absolute;
   inset: 4px;
-  background: #1A1A1A;
+  background: ${({ theme }) => theme.colors.background};
   padding: 50px 40px;
   border-radius: 8px;
   z-index: 2;
@@ -91,7 +91,7 @@ export const FormWrapper = styled.form`
 export const FormTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #f5f5f5;
+  color: ${({ theme }) => theme.colors.primary};
   text-align: center;
   letter-spacing: 0.1em;
 `;
@@ -108,7 +108,7 @@ export const LabelSpan = styled.span`
   position: absolute;
   left: 0;
   padding: 20px 0px 10px;
-  color: #8f8f8f;
+  color: ${({ theme }) => theme.colors.formWaiting};
   pointer-events: none;
   font-size: 1em;
   letter-spacing: 0.05em;
@@ -121,7 +121,7 @@ export const I = styled.i`
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: #f5f5f5;
+  background: ${({ theme }) => theme.colors.primary};
   overflow: hidden;
   transition: 0.5s;
   pointer-events: none;
@@ -143,7 +143,7 @@ export const Input = styled.input`
   z-index: 10;
 
   &:valid ~ ${LabelSpan}, &:focus ~ ${LabelSpan} {
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 0.75em;
     transform: translateY(-34px);
   }
@@ -160,12 +160,12 @@ export const Links = styled.div`
 
 export const Redirect = styled(Link)`
   margin: 10px 0;
-  color: #8f8f8f;
+  color: ${({ theme }) => theme.colors.formWaiting};
   font-size: 0.75em;
   text-decoration: none;
 
   &:hover, &:nth-child(2) {
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -173,7 +173,7 @@ export const Button = styled.button`
   border: none;
   outline: none;
   padding: 9px 25px;
-  background: #f5f5f5;
+  background: ${({ theme }) => theme.colors.primary};
   cursor: pointer;
   border-radius: 4px;
   font-size: 0.9em;

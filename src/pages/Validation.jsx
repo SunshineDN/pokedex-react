@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import Loader from "../components/Loader/Loader";
 import { useNavigate } from "react-router-dom";
-import { LoaderContainer } from "../components/Loader";
 
 const Validation = ({ isLogged }) => {
 
@@ -22,9 +21,7 @@ const Validation = ({ isLogged }) => {
   return (
     <div>
       {!isLogged && (
-        <LoaderContainer>
-          <Loader position={'absolute'} />  
-        </LoaderContainer>
+        <Loader position={'absolute'} />
       )}
     </div>
   )

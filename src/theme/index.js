@@ -1,0 +1,31 @@
+export const dark = () => ({
+    colors: {
+        background: "#1A1A1A",
+        formBackside: "#171717",
+        primary: "#f5f5f5",
+        border: "#535353",
+        containerHighlight: "#1F1F1F",
+        containerHighlightHover: "#2B2B2B",
+        formWaiting: "#8F8F8F",
+        types: {
+            normal: {bg: "#A8A77A", color: "#1A1A1A"},
+            fire: {bg: "#EE8130", color: "#1A1A1A"},
+            water: {bg: "#6390F0", color: "#1A1A1A"},
+            electric: {bg: "#F7D02C", color: "#1A1A1A"},
+            grass: {bg: "#7AC74C", color: "#1A1A1A"},
+            ice: {bg: "#96D9D6", color: "#1A1A1A"},
+            fighting: {bg: "#C22E28", color: "#F5F5F5"},
+            poison: {bg: "#A33EA1", color: "#F5F5F5"},
+            ground: {bg: "#E2BF65", color: "#1A1A1A"},
+            flying: {bg: "#A98FF3", color: "#1A1A1A"},
+            psychic: {bg: "#F95587", color: "#1A1A1A"},
+            bug: {bg: "#A6B91A", color: "#1A1A1A"},
+            rock: {bg: "#B6A136", color: "#1A1A1A"},
+            ghost: {bg: "#735797", color: "#F5F5F5"},
+            dragon: {bg: "#6F35FC", color: "#F5F5F5"},
+            dark: {bg: "#705746", color: "#F5F5F5"},
+            steel: {bg: "#B7B7CE", color: "#1A1A1A"},
+            fairy: {bg: "#D685AD", color: "#1A1A1A"},
+          },
+    }
+})

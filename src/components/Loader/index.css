@@ -167,11 +167,6 @@
     transform-origin: 50% 50%;
 }
 
-#Ebene_1 path,
-#Ebene_1 circle {
-    fill: #fff;
-}
-
 @keyframes animationFrames {
     0% {
         transform: rotate(0deg);

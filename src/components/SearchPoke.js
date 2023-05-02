@@ -5,7 +5,7 @@ export const SearchContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 16px;
-    background-color: #1F1F1F;
+    background-color: ${({ theme }) => theme.colors.containerHighlight};
     justify-content: center;
     align-items: center;
     margin: 0 16px;
@@ -16,7 +16,7 @@ export const SearchContainer = styled.div`
 `;
 
 export const SearchTitle = styled.h2`
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 1.5rem;
     font-weight: 700;
     text-align: left;
@@ -35,7 +35,7 @@ export const SearchInputBox = styled.div`
 `;
 
 export const SearchInput = styled.input`
-    border: 2px solid #535353;
+    border: 2px solid ${({ theme }) => theme.colors.border};
     outline: none;
     height: 52px;
     width: 100%;
@@ -44,12 +44,12 @@ export const SearchInput = styled.input`
     letter-spacing: 0.05em;
     background-color: transparent;
     border-radius: 8px;
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
     padding: 0 5px 0 50px;
 `;
 
 export const SearchIcon = styled(AiOutlineSearch)`
-    color: #535353;
+    color: ${({ theme }) => theme.colors.border};
     font-size: 1.3rem;
     position: absolute;
     top: 14px;

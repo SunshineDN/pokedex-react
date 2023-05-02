@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  background-color: #1A1A1A;
+  background-color: ${({ theme }) => theme.colors.background};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,7 +30,7 @@ export const Container = styled.div`
 
 export const Span = styled.span`
   margin: 10px 0;
-  color: #8f8f8f;
+  color: ${({ theme }) => theme.colors.formWaiting};
   font-size: 0.75em;
   text-decoration: none;
 

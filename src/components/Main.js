@@ -4,11 +4,11 @@ import { MdOutlineLogout } from "react-icons/md";
 import HeaderImg from "../assets/img/img_header.png"
 
 export const Container = styled.div`
-    background-color: #1A1A1A;
+    background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const HomeContainer = styled.div`
-    background-color: #1A1A1A;
+    background-color: ${({ theme }) => theme.colors.background};
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -16,7 +16,7 @@ export const HomeContainer = styled.div`
 `;
 
 export const HeaderContainer = styled.header`
-    background-color: #1A1A1A;
+    background-color: ${({ theme }) => theme.colors.background};
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -32,7 +32,7 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Title = styled(Link)`
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 1.5rem;
     font-weight: 400;
     text-decoration: none;
@@ -43,7 +43,7 @@ export const Title = styled(Link)`
 `;
 
 export const LogoutIcon = styled(MdOutlineLogout)`
-    color: #f5f5f5;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: 1.5rem;
     cursor: pointer;
 `;
@@ -57,7 +57,7 @@ export const ImgHeaderContainer = styled.div`
 `;
 
 export const ImgHeader = styled.div`
-    background: linear-gradient(0deg, #1A1A1A 13.27%, rgba(26, 26, 26, 0) 143.36%),
+    background: linear-gradient(0deg, ${({ theme }) => theme.colors.background} 13.27%, rgba(26, 26, 26, 0) 143.36%),
     url(${HeaderImg}) no-repeat center;
     background-size: contain;
     width: 100%;
