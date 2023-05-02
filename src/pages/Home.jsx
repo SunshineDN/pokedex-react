@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   HeaderContainer,
@@ -10,6 +10,7 @@ import {
   ImgHeaderContainer,
   ImgHeader,
 } from "../components/Main";
+
 import {
   LinkPokemon,
   PokedexCard,
@@ -30,14 +31,12 @@ import {
   SearchTitle,
 } from "../components/SearchPoke";
 import Loader from "../components/Loader/Loader";
-import { scroller } from "react-scroll";
 
 const Home = () => {
   const [pokemons, setPokemons] = useState([]);
   const [pokemonsBkp, setPokemonsBkp] = useState([]);
 
   const navigate = useNavigate();
-  const { id } = useParams();
   const [search, setSearch] = useState("");
 
   function handleSearchPokemon() {
@@ -54,15 +53,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if(id) {
-        scroller.scrollTo(id, {
-          duration: 0,
-          delay: 0,
-          offset: -80,
-        });
-      }
-    }, 100);
     const getPokemons = async () => {
       fetch("https://pokeapi.co/api/v2/pokemon?limit=250")
         .then((response) => response.json())
@@ -72,9 +62,7 @@ const Home = () => {
         });
     };
     getPokemons();
-
-    return () => clearTimeout(timer);
-  }, [id]);
+  }, []);
 
   return (
     <Container>

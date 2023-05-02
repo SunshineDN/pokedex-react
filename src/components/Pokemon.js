@@ -275,3 +275,49 @@ export const PokemonDetailsStatusBarProgressValue = styled.span`
     text-align: left;
     text-transform: uppercase;
 `;
+
+export const PokemonDetailsMovesContainer = styled.div`
+    margin-top: 24px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 16px;
+    background-color: ${({ theme }) => theme.colors.containerHighlight};
+    border-radius: 8px;
+`;
+
+export const PokemonDetailsMovesTitle = styled.h2`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;
+`;
+
+export const PokemonDetailsMovesWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    & > ${Divider} {
+        margin-top: 16px;
+    }
+`;
+
+export const PokemonDetailsMovesName = styled.h3`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: .75rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;
+    margin: 16px 0 8px 0 ;
+`;
+
+export const PokemonDetailsMovesTagContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+`;

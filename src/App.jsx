@@ -36,7 +36,6 @@ function App() {
           <Route path="login" element={<Login />} users={users} handleLogin={handleLogin} />
           <Route path="forgot" element={<Forgot />} users={users} />
           <Route path="home" element={<Home /> } />
-          <Route path="home/:id" element={<Home /> } />
           <Route path="pokemon/:id" element={<PokemonDetails />} />
         </Routes>
       </HashRouter>

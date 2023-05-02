@@ -29,6 +29,11 @@ import {
   PokemonDetailsStatusTitle,
   PokemonDetailsStatusBarProgress,
   PokemonDetailsStatusBarProgressValue,
+  PokemonDetailsMovesContainer,
+  PokemonDetailsMovesTitle,
+  PokemonDetailsMovesName,
+  PokemonDetailsMovesWrapper,
+  PokemonDetailsMovesTagContainer,
 } from "../components/Pokemon";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
@@ -91,6 +96,26 @@ const PokemonDetails = () => {
             value: item.base_stat,
           };
         });
+        let movesFiltered = data.moves.filter(
+          (item) => item.version_group_details[0].level_learned_at !== 0
+        );
+        let moves = movesFiltered.slice(0, 4);
+        let movesType = await Promise.all(
+          moves.map(
+            async (item) =>
+              await fetch(item.move.url)
+                .then((response) => response.json())
+                .then((data) => {
+                  return data.type.name;
+                })
+          )
+        );
+        moves = moves.map((item, index) => {
+          return {
+            name: item.move.name,
+            type: movesType[index],
+          };
+        });
         const newData = {
           id: data.id,
           name: data.name,
@@ -104,7 +129,7 @@ const PokemonDetails = () => {
               : weaknesses[0],
           stats: stats,
           abilities: data.abilities,
-          moves: data.moves,
+          moves: moves,
           species: await fetch(data.species.url)
             .then((response) => response.json())
             .then((data) => {
@@ -129,7 +154,7 @@ const PokemonDetails = () => {
       </HeaderContainer>
       <PokemonDetailsContainer>
         <PokemonDetailsHeader>
-          <PokemonDetailsBackIcon onClick={() => navigate("/home/" + id)} />
+          <PokemonDetailsBackIcon onClick={() => navigate("/home")} />
           <PokemonDetailsTitle>
             {pokemon.name} #{pokemon.id}
           </PokemonDetailsTitle>
@@ -219,13 +244,37 @@ const PokemonDetails = () => {
                 {item.name}
               </PokemonDetailsStatusBarTitle>
               <PokemonDetailsStatusBar>
-                <PokemonDetailsStatusBarProgress value={item.value} type={pokemon?.types[0]?.type?.name}>
-                    <PokemonDetailsStatusBarProgressValue type={pokemon?.types[0]?.type?.name}>{item.value}/255</PokemonDetailsStatusBarProgressValue>
+                <PokemonDetailsStatusBarProgress
+                  value={item.value}
+                  type={pokemon?.types[0]?.type?.name}
+                >
+                  <PokemonDetailsStatusBarProgressValue
+                    type={pokemon?.types[0]?.type?.name}
+                  >
+                    {item.value}/255
+                  </PokemonDetailsStatusBarProgressValue>
                 </PokemonDetailsStatusBarProgress>
               </PokemonDetailsStatusBar>
             </PokemonDetailsStatusBarContainer>
           ))}
         </PokemonDetailsStatusContainer>
+        <PokemonDetailsMovesContainer>
+          <PokemonDetailsMovesTitle>Moves</PokemonDetailsMovesTitle>
+          {pokemon.moves.map((item, index) => (
+            <PokemonDetailsMovesWrapper key={index}>
+              <PokemonDetailsMovesName>{item?.name}</PokemonDetailsMovesName>
+              <PokemonDetailsMovesTagContainer>
+                <PokemonDetailsInfoTypeTag type={item?.type}>
+                  <PokemonDetailsInfoTypeIcon type={item?.type} />
+                  {item?.type}
+                </PokemonDetailsInfoTypeTag>
+              </PokemonDetailsMovesTagContainer>
+              {(pokemon.moves.length > 1 && index < 3) && (
+                <Divider />
+              )}
+            </PokemonDetailsMovesWrapper>
+          ))}
+        </PokemonDetailsMovesContainer>
       </PokemonDetailsContainer>
     </Container>
   );
