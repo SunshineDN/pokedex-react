@@ -34,6 +34,12 @@ import {
   PokemonDetailsMovesName,
   PokemonDetailsMovesWrapper,
   PokemonDetailsMovesTagContainer,
+  PokemonDetailsEvolutionContainer,
+  PokemonDetailsEvolutionTitle,
+  PokemonDetailsEvolutionWrapper,
+  PokemonDetailsEvolutionBox,
+  PokemonDetailsEvolutionImage,
+  PokemonDetailsEvolutionName,
 } from "../components/Pokemon";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
@@ -43,6 +49,7 @@ import {
   LogoutIcon,
   Title,
 } from "../components/Main";
+import { LinkPokemon } from "../components/Pokedex";
 
 const PokemonDetails = () => {
   const [pokemon, setPokemon] = useState(null);
@@ -79,9 +86,10 @@ const PokemonDetails = () => {
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((response) => response.json())
-      .then(async (data) => {
+      .then(async ({ id, name, height, weight, sprites, types, stats, moves, species }) => {
+
         let weaknesses = await Promise.all(
-          data.types.map(
+          types.map(
             async (item) =>
               await fetch(item.type.url)
                 .then((response) => response.json())
@@ -90,16 +98,18 @@ const PokemonDetails = () => {
                 })
           )
         );
-        let stats = data.stats.map((item) => {
+
+        stats = stats.map((item) => {
           return {
             name: handleChangeStatsName(item?.stat?.name),
             value: item.base_stat,
           };
         });
-        let movesFiltered = data.moves.filter(
+
+        let movesFiltered = moves.filter(
           (item) => item.version_group_details[0].level_learned_at !== 0
         );
-        let moves = movesFiltered.slice(0, 4);
+        moves = movesFiltered.slice(0, 4);
         let movesType = await Promise.all(
           moves.map(
             async (item) =>
@@ -116,27 +126,83 @@ const PokemonDetails = () => {
             type: movesType[index],
           };
         });
+        
+        species = await fetch(species.url)
+        .then((response) => response.json())
+        .then(({ evolution_chain, genera, flavor_text_entries }) => {
+          return {
+            evolution_chain,
+            genera,
+            flavor_text_entries
+          }
+        })
+
+        let evolutionChain = await fetch(species.evolution_chain.url)
+          .then((response) => response.json())
+          .then(({ chain }) => {
+            return {
+              chain
+            }
+          })
+
+        let firstEvolution = evolutionChain.chain.evolves_to.map((item) => {
+          return item.species.name
+        })
+
+        let secondEvolution = evolutionChain.chain.evolves_to.map((item) => {
+          return item.evolves_to.map((item) => {
+            return item.species.name
+          })
+        })
+
+        let evolution = [evolutionChain.chain.species.name, ...firstEvolution, ...secondEvolution[0]]
+
+        let evolutionData = await Promise.all(
+          evolution.map(
+            async (item) =>
+              await fetch(`https://pokeapi.co/api/v2/pokemon/${item}`)
+                .then((response) => response.json())
+                .then(({ id, sprites, types, name }) => {
+                  return {
+                    id,
+                    name,
+                    sprites,
+                    types
+                  }
+                }
+              )
+            )
+          )
+        
+        evolution = evolutionData.map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            sprite: item.sprites.other["official-artwork"].front_default,
+            type: item.types[0].type.name,
+            selected: item.name === name ? true : false
+          }
+        })
+
+        species["evolution_chain"] = evolution
+
         const newData = {
-          id: data.id,
-          name: data.name,
-          height: data.height,
-          weight: data.weight,
-          sprites: data.sprites,
-          types: data.types,
+          id: id,
+          name: name,
+          height: height,
+          weight: weight,
+          sprites: sprites,
+          types: types,
           weaknesses:
             weaknesses.length > 1
               ? [...weaknesses[0], ...weaknesses[1]]
               : weaknesses[0],
           stats: stats,
-          abilities: data.abilities,
           moves: moves,
-          species: await fetch(data.species.url)
-            .then((response) => response.json())
-            .then((data) => {
-              return data;
-            }),
+          species: species
         };
         setPokemon(newData);
+        console.log(newData)
       });
   }, [id]);
 
@@ -275,6 +341,23 @@ const PokemonDetails = () => {
             </PokemonDetailsMovesWrapper>
           ))}
         </PokemonDetailsMovesContainer>
+        <PokemonDetailsEvolutionContainer>
+          <PokemonDetailsEvolutionTitle>Evolution</PokemonDetailsEvolutionTitle>
+          <PokemonDetailsEvolutionWrapper>
+            {pokemon.species.evolution_chain.map((item) => (
+              <LinkPokemon key={item?.id} to={`/pokemon/${item?.id}`}>
+                <PokemonDetailsEvolutionBox type={item?.type} selected={item?.selected} >
+                  <PokemonDetailsEvolutionImage image={item?.sprite} />
+                  <PokemonDetailsEvolutionName>{item?.name}</PokemonDetailsEvolutionName>
+                  <PokemonDetailsInfoTypeTag type={item?.type}>
+                    <PokemonDetailsInfoTypeIcon type={item?.type} />
+                    {item?.type}
+                  </PokemonDetailsInfoTypeTag>
+                </PokemonDetailsEvolutionBox>
+              </LinkPokemon>
+            ))}
+          </PokemonDetailsEvolutionWrapper>
+        </PokemonDetailsEvolutionContainer>
       </PokemonDetailsContainer>
     </Container>
   );

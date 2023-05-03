@@ -263,6 +263,7 @@ export const PokemonDetailsStatusBarProgress = styled.span`
     border-radius: 25px;
     box-shadow: inset 2px 2px 5px ${({ theme }) => theme.colors.insetGlow},
     inset -3px -3px 7px ${(props) => props?.theme?.colors?.types?.[props.type]?.bg};
+    transition: all .7s ease-in-out;
 `;
 
 export const PokemonDetailsStatusBarProgressValue = styled.span`
@@ -303,6 +304,7 @@ export const PokemonDetailsMovesWrapper = styled.div`
 
     & > ${Divider} {
         margin-top: 16px;
+        margin-bottom: 0;
     }
 `;
 
@@ -320,4 +322,64 @@ export const PokemonDetailsMovesTagContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+
+    & > ${PokemonDetailsInfoTypeTag} {
+        margin-left: 0px;
+    }
+`;
+
+export const PokemonDetailsEvolutionContainer = styled.div`
+    margin-top: 24px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 16px;
+    background-color: ${({ theme }) => theme.colors.containerHighlight};
+    border-radius: 8px;
+`;
+
+export const PokemonDetailsEvolutionTitle = styled.h2`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;
+`;
+
+export const PokemonDetailsEvolutionWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 16px;
+    gap: 16px;
+`;
+
+export const PokemonDetailsEvolutionBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid ${(props) => props?.selected === true ? props?.theme?.colors?.types?.[props.type]?.bg : props?.theme?.colors?.border};
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: ${(props) => props?.selected === true ? `0px 0px 20px -10px ${props?.theme?.colors?.types?.[props.type]?.bg}` : 'none'};
+`;
+
+export const PokemonDetailsEvolutionName = styled.h3`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: .75rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;
+    margin: 0 0 8px 0 ;
+`;
+
+export const PokemonDetailsEvolutionImage = styled.div`
+    background: url(${(props) => props.image}) no-repeat center;
+    background-size: contain;
+    width: 70px;
+    height: 70px;
 `;
