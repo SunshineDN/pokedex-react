@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import PokemonBG from "../assets/pokemon-bg.svg";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
 
 export const PokemonDetailsContainer = styled.div`
     background-color: ${({ theme }) => theme.colors.background};
@@ -93,7 +94,7 @@ export const PokemonDetailsInfoDesc = styled.p`
 export const PokemonDetailsInfoDataContainer = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 23px;
     flex-wrap: wrap;
@@ -102,11 +103,15 @@ export const PokemonDetailsInfoDataContainer = styled.div`
 export const PokemonDetailsInfoDataFrame = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: baseline;
     width: 50%;
 
     &:nth-child(-n+2) {
+        margin-bottom: 16px;
+    }
+
+    &:nth-child(3) {
         margin-bottom: 16px;
     }
 `;
@@ -125,6 +130,24 @@ export const PokemonDetailsInfoDataValue = styled.p`
     font-size: .75rem;
     font-weight: 400;
     text-align: left;
+    position: relative;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 0;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: flex-start;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesIcon = styled(BsFillQuestionCircleFill)`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: .75rem;
+    position: absolute;
+    right: -15px;
+    top: 2px;
 `;
 
 export const Divider = styled.div`

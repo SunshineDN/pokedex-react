@@ -40,6 +40,8 @@ import {
   PokemonDetailsEvolutionBox,
   PokemonDetailsEvolutionImage,
   PokemonDetailsEvolutionName,
+  PokemonDetailsInfoDataAbilitiesContainer,
+  PokemonDetailsInfoDataAbilitiesIcon,
 } from "../components/Pokemon";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
@@ -86,7 +88,23 @@ const PokemonDetails = () => {
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
       .then((response) => response.json())
-      .then(async ({ id, name, height, weight, sprites, types, stats, moves, species }) => {
+      .then(async ({ abilities, id, name, height, weight, sprites, types, stats, moves, species }) => {
+
+        abilities = await Promise.all(
+          abilities.map(
+            async (item) =>
+              await fetch(item.ability.url)
+                .then((response) => response.json())
+                .then((data) => {
+                  return {
+                    name: data?.name,
+                    effect: data?.effect_entries?.filter(
+                      (item) => item?.language?.name === "en"
+                    )[0]?.effect,
+                  }
+                })
+          )
+        );
 
         let weaknesses = await Promise.all(
           types.map(
@@ -97,6 +115,7 @@ const PokemonDetails = () => {
                   return {
                     double_damage_from: data.damage_relations.double_damage_from,
                     half_damage_from: data.damage_relations.half_damage_from,
+                    no_damage_from: data.damage_relations.no_damage_from,
                   };
                 })
           )
@@ -108,8 +127,20 @@ const PokemonDetails = () => {
           }).length === 0;
         });
 
+        weakPart1 = weakPart1?.filter((item) => {
+          return weaknesses[1]?.no_damage_from.filter((item2) => {
+            return item.name === item2.name;
+          }).length === 0;
+        });
+
         let weakPart2 = weaknesses[1]?.double_damage_from.filter((item) => {
           return weaknesses[0]?.half_damage_from.filter((item2) => {
+            return item.name === item2.name;
+          }).length === 0;
+        });
+
+        weakPart2 = weakPart2?.filter((item) => {
+          return weaknesses[0]?.no_damage_from.filter((item2) => {
             return item.name === item2.name;
           }).length === 0;
         });
@@ -205,6 +236,7 @@ const PokemonDetails = () => {
 
         const newData = {
           id: id,
+          abilities: abilities,
           name: name,
           height: height,
           weight: weight,
@@ -275,6 +307,21 @@ const PokemonDetails = () => {
               <PokemonDetailsInfoDataValue>
                 [Coming soon...]
               </PokemonDetailsInfoDataValue>
+            </PokemonDetailsInfoDataFrame>
+            <PokemonDetailsInfoDataFrame>
+              <PokemonDetailsInfoDataTitle>Abilities</PokemonDetailsInfoDataTitle>
+              <PokemonDetailsInfoDataAbilitiesContainer>
+                {pokemon.abilities.map((item, index) => (
+                  <PokemonDetailsInfoDataValue key={index}>
+                    <abbr title={item?.effect} style={{
+                      cursor: "help"
+                    }}>
+                      {item?.name?.charAt(0)?.toUpperCase() + item?.name?.slice(1)}
+                      <PokemonDetailsInfoDataAbilitiesIcon />
+                    </abbr>
+                  </PokemonDetailsInfoDataValue>
+                ))}
+              </PokemonDetailsInfoDataAbilitiesContainer>
             </PokemonDetailsInfoDataFrame>
           </PokemonDetailsInfoDataContainer>
           <Divider />
