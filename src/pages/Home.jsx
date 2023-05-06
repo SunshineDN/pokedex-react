@@ -98,7 +98,7 @@ const Home = () => {
             </SearchInputBox>
           </SearchContainer>
           <PokedexContainer>
-            <PokedexTitle>Todos os pokémons</PokedexTitle>
+            <PokedexTitle>All pokémon</PokedexTitle>
             <PokedexCardsContainer>
                 {pokemons.map((pokemon) => (
                   <LinkPokemon to={`/pokemon/${pokemon.url.split('/')[6]}`} key={pokemon.url.split('/')[6]} id={pokemon.url.split('/')[6]}>

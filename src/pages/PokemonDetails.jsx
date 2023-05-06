@@ -94,11 +94,28 @@ const PokemonDetails = () => {
               await fetch(item.type.url)
                 .then((response) => response.json())
                 .then((data) => {
-                  return data.damage_relations.double_damage_from;
+                  return {
+                    double_damage_from: data.damage_relations.double_damage_from,
+                    half_damage_from: data.damage_relations.half_damage_from,
+                  };
                 })
           )
         );
 
+        let weakPart1 = weaknesses[0]?.double_damage_from.filter((item) => {
+          return weaknesses[1]?.half_damage_from.filter((item2) => {
+            return item.name === item2.name;
+          }).length === 0;
+        });
+
+        let weakPart2 = weaknesses[1]?.double_damage_from.filter((item) => {
+          return weaknesses[0]?.half_damage_from.filter((item2) => {
+            return item.name === item2.name;
+          }).length === 0;
+        });
+
+        weaknesses = weaknesses.length > 1 ? [...weakPart1, ...weakPart2] : weaknesses[0]?.double_damage_from;
+        
         stats = stats.map((item) => {
           return {
             name: handleChangeStatsName(item?.stat?.name),
@@ -155,7 +172,7 @@ const PokemonDetails = () => {
           })
         })
 
-        let evolution = [evolutionChain.chain.species.name, ...firstEvolution, ...secondEvolution[0]]
+        let evolution = [evolutionChain?.chain?.species?.name, ...firstEvolution, ...secondEvolution[0] || []]
 
         let evolutionData = await Promise.all(
           evolution.map(
@@ -193,16 +210,12 @@ const PokemonDetails = () => {
           weight: weight,
           sprites: sprites,
           types: types,
-          weaknesses:
-            weaknesses.length > 1
-              ? [...weaknesses[0], ...weaknesses[1]]
-              : weaknesses[0],
+          weaknesses: weaknesses.filter((item, index) => item?.name !== types[index]?.type?.name),
           stats: stats,
           moves: moves,
           species: species
         };
         setPokemon(newData);
-        console.log(newData)
       });
   }, [id]);
 
