@@ -35,26 +35,33 @@ import Loader from "../components/Loader/Loader";
 const Home = () => {
   const [pokemons, setPokemons] = useState([]);
   const [pokemonsBkp, setPokemonsBkp] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
 
   function handleSearchPokemon() {
+    const search = document.querySelector('input').value;
     const filter = pokemonsBkp.filter((pokemon) => {
       return pokemon.name.toLowerCase().includes(search.toLowerCase()) === true
     });
+
+    if (search === '') {
+      setPokemons(pokemonsBkp);
+      setIsSearching(false);
+      return;
+    }
 
     if(filter.length === 0) {
       alert('Pokemon não encontrado');
       return;
     }
-
     setPokemons(filter);
+    setIsSearching(true);
   }
 
   useEffect(() => {
     const getPokemons = async () => {
-      fetch("https://pokeapi.co/api/v2/pokemon?limit=250")
+      fetch("https://pokeapi.co/api/v2/pokemon?limit=10000")
         .then((response) => response.json())
         .then((data) => {
           setPokemons(data.results);
@@ -77,6 +84,10 @@ const Home = () => {
                 smooth={true}
                 offset={0}
                 duration={500}
+                onClick={() => {
+                  setPokemons(pokemonsBkp);
+                  setIsSearching(false);
+                } }
             >
               Pokédex
             </Title>
@@ -88,7 +99,7 @@ const Home = () => {
           <SearchContainer>
             <SearchTitle>What Pokémon are you looking for?</SearchTitle>
             <SearchInputBox>
-                <SearchInput type="text" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+                <SearchInput type="text" placeholder="Search" />
                 <SearchIcon />
                 <SearchButton onClick={
                   () => {
@@ -98,7 +109,9 @@ const Home = () => {
             </SearchInputBox>
           </SearchContainer>
           <PokedexContainer>
-            <PokedexTitle>All pokémon</PokedexTitle>
+            <PokedexTitle>
+              {isSearching ? `${pokemons.length} search results for: ${document.querySelector('input').value}` : 'All pokémon'}
+            </PokedexTitle>
             <PokedexCardsContainer>
                 {pokemons.map((pokemon) => (
                   <LinkPokemon to={`/pokemon/${pokemon.url.split('/')[6]}`} key={pokemon.url.split('/')[6]} id={pokemon.url.split('/')[6]}>

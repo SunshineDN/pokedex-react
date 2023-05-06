@@ -43,7 +43,10 @@ import {
   PokemonDetailsInfoDataAbilitiesContainer,
   PokemonDetailsInfoDataAbilitiesIcon,
 } from "../components/Pokemon";
+
 import { useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-scroll";
+
 import Loader from "../components/Loader/Loader";
 import {
   Container,
@@ -51,7 +54,7 @@ import {
   LogoutIcon,
   Title,
 } from "../components/Main";
-import { LinkPokemon } from "../components/Pokedex";
+// import { LinkPokemon } from "../components/Pokedex";
 
 const PokemonDetails = () => {
   const [pokemon, setPokemon] = useState(null);
@@ -62,7 +65,7 @@ const PokemonDetails = () => {
   )[0]?.flavor_text;
   const generaFiltered = pokemon?.species?.genera
     ?.filter((item) => item?.language?.name === "en")[0]
-    ?.genus.split(" ");
+    ?.genus?.split(" ");
 
   function handleChangeStatsName(stats) {
     if (stats === "hp") {
@@ -279,7 +282,7 @@ const PokemonDetails = () => {
         <PokemonDetailsInfoContainer>
           <PokemonDetailsInfoTitle>About</PokemonDetailsInfoTitle>
           <PokemonDetailsInfoDesc>
-            &quot;{descFiltered.split(/[\n\f]/).join(" ")}&quot;
+            &quot;{descFiltered?.length > 0 ? descFiltered?.split(/[\n\f]/)?.join(" ") : "Unknown"}&quot;
           </PokemonDetailsInfoDesc>
           <PokemonDetailsInfoDataContainer>
             <PokemonDetailsInfoDataFrame>
@@ -293,7 +296,7 @@ const PokemonDetails = () => {
                 Category
               </PokemonDetailsInfoDataTitle>
               <PokemonDetailsInfoDataValue>
-                {generaFiltered[0]}
+                {generaFiltered?.length > 0 ? generaFiltered[0] : "Unknown"}
               </PokemonDetailsInfoDataValue>
             </PokemonDetailsInfoDataFrame>
             <PokemonDetailsInfoDataFrame>
@@ -405,8 +408,8 @@ const PokemonDetails = () => {
           <PokemonDetailsEvolutionTitle>Evolution</PokemonDetailsEvolutionTitle>
           <PokemonDetailsEvolutionWrapper>
             {pokemon.species.evolution_chain.map((item) => (
-              <LinkPokemon key={item?.id} to={`/pokemon/${item?.id}`}>
-                <PokemonDetailsEvolutionBox type={item?.type} selected={item?.selected} >
+              <Link key={item?.id} to="initial" spy={true} smooth={true} offset={0} duration={1500} onClick={() => navigate(`/pokemon/${item?.id}`)} style={{textDecoration: "none", cursor: "pointer", userSelect: "none"}}>
+                <PokemonDetailsEvolutionBox type={item?.type} selected={item?.selected} to="initial" spy={true} smooth={true} offset={0} duration={500} >
                   <PokemonDetailsEvolutionImage image={item?.sprite} />
                   <PokemonDetailsEvolutionName>{item?.name}</PokemonDetailsEvolutionName>
                   <PokemonDetailsInfoTypeTag type={item?.type}>
@@ -414,7 +417,7 @@ const PokemonDetails = () => {
                     {item?.type}
                   </PokemonDetailsInfoTypeTag>
                 </PokemonDetailsEvolutionBox>
-              </LinkPokemon>
+              </Link>
             ))}
           </PokemonDetailsEvolutionWrapper>
         </PokemonDetailsEvolutionContainer>

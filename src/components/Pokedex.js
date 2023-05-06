@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export const LinkPokemon = styled(Link)`
     text-decoration: none;
+    user-select: none;
 `;
 
 export const PokedexContainer = styled.div`
