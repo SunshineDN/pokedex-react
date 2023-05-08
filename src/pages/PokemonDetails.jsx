@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Divider,
   PokemonDetailsBackIcon,
@@ -44,10 +44,11 @@ import {
   PokemonDetailsInfoDataAbilitiesIcon,
   PokemonDetailsInfoDataAbilitiesModalContainer,
   PokemonDetailsInfoDataAbilitiesModalWrapper,
+  PokemonDetailsInfoDataAbilitiesModalName,
+  PokemonDetailsInfoDataAbilitiesModalDescription,
+  PokemonDetailsInfoDataAbilitiesModalClose,
+  PokemonDetailsInfoDataAbilitiesModalValues,
   PokemonDetailsInfoDataAbilitiesModalTitle,
-  PokemonDetailsInfoDataAbilitiesModalWrapperAbilities,
-  PokemonDetailsInfoDataAbilitiesModalWrapperAbilitiesName,
-  PokemonDetailsInfoDataAbilitiesModalWrapperAbilitiesDescription,
 } from "../components/Pokemon";
 
 import { useParams, useNavigate } from "react-router-dom";
@@ -66,7 +67,8 @@ const PokemonDetails = () => {
   const [pokemon, setPokemon] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
-  const [abilityModal, setAbilityModal] = useState(true);
+  const [abilityModal, setAbilityModal] = useState(false);
+  const modalRef = useRef(null);
 
   const descFiltered = pokemon?.species?.flavor_text_entries?.filter(
     (item) => item?.language?.name === "en"
@@ -96,6 +98,21 @@ const PokemonDetails = () => {
       return "SPD";
     }
   }
+
+  useEffect(() => {
+    const handleClickOutsideModal = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setAbilityModal(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutsideModal);
+
+    return () => {
+      document.addEventListener("mousedown", handleClickOutsideModal);
+    };
+  }, []);
+
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
@@ -297,7 +314,7 @@ const PokemonDetails = () => {
             <PokemonDetailsInfoDataFrame>
               <PokemonDetailsInfoDataTitle>Height</PokemonDetailsInfoDataTitle>
               <PokemonDetailsInfoDataValue>
-                {(pokemon.height / 3.281).toFixed(2)} m
+                {(pokemon.height / 10).toFixed(2)} m
               </PokemonDetailsInfoDataValue>
             </PokemonDetailsInfoDataFrame>
             <PokemonDetailsInfoDataFrame>
@@ -325,7 +342,7 @@ const PokemonDetails = () => {
               <PokemonDetailsInfoDataAbilitiesContainer>
                 {pokemon.abilities.map((item, index) => (
                   <PokemonDetailsInfoDataValue key={index} onClick={() => {
-
+                    setAbilityModal(true)
                   }}>
                     <abbr title={item?.effect} style={{
                       cursor: "help"
@@ -335,6 +352,26 @@ const PokemonDetails = () => {
                     </abbr>
                   </PokemonDetailsInfoDataValue>
                 ))}
+                {abilityModal && (
+                  <PokemonDetailsInfoDataAbilitiesModalContainer>
+                    <PokemonDetailsInfoDataAbilitiesModalWrapper ref={modalRef}>
+                    <PokemonDetailsInfoDataAbilitiesModalTitle>Abilities</PokemonDetailsInfoDataAbilitiesModalTitle>
+                    {pokemon.abilities?.map((item, index) => (
+                      <PokemonDetailsInfoDataAbilitiesModalValues key={index}>
+                        <PokemonDetailsInfoDataAbilitiesModalName key={index} >
+                          {item?.name?.charAt(0)?.toUpperCase() + item?.name?.slice(1)}
+                        </PokemonDetailsInfoDataAbilitiesModalName>
+                        <PokemonDetailsInfoDataAbilitiesModalDescription>
+                          {item?.effect?.length > 0 ? item?.effect?.split(/[\n\f]/)?.join(" ") : "Unknown"}
+                        </PokemonDetailsInfoDataAbilitiesModalDescription>
+                        <PokemonDetailsInfoDataAbilitiesModalClose  onClick={() => {
+                          setAbilityModal(!abilityModal)
+                        }}/>
+                      </PokemonDetailsInfoDataAbilitiesModalValues>
+                    ))}
+                    </PokemonDetailsInfoDataAbilitiesModalWrapper>
+                  </PokemonDetailsInfoDataAbilitiesModalContainer>
+                )}
               </PokemonDetailsInfoDataAbilitiesContainer>
             </PokemonDetailsInfoDataFrame>
           </PokemonDetailsInfoDataContainer>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import PokemonBG from "../assets/pokemon-bg.svg";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 export const PokemonDetailsContainer = styled.div`
     background-color: ${({ theme }) => theme.colors.background};
@@ -125,7 +126,7 @@ export const PokemonDetailsInfoDataTitle = styled.h3`
     margin-right: 8px;
 `;
 
-export const PokemonDetailsInfoDataValue = styled.p`
+export const PokemonDetailsInfoDataValue = styled.div`
     color: ${({ theme }) => theme.colors.primary};
     font-size: .75rem;
     font-weight: 400;
@@ -409,53 +410,77 @@ export const PokemonDetailsEvolutionImage = styled.div`
 
 export const PokemonDetailsInfoDataAbilitiesModalContainer = styled.div`
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,.5);
     top: 0;
     left: 0;
+    z-index: 9998;
 `;
 
 export const PokemonDetailsInfoDataAbilitiesModalWrapper = styled.div`
-    height: 100%;
-    width: 100%;
-    background-color: ${({ theme }) => theme.colors.containerHighlight};
+    margin: 0 auto;
+    height: 50%;
+    max-width: 368px;
+    position: relative;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
     padding: 16px;
+    background-color: ${({ theme }) => theme.colors.containerHighlight};
+    border-radius: 8px;
+    gap: 24px;
 `;
 
 export const PokemonDetailsInfoDataAbilitiesModalTitle = styled.h2`
     color: ${({ theme }) => theme.colors.primary};
-    font-size: 1rem;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-size: 1.2rem;
     font-weight: 700;
     text-align: left;
     text-transform: capitalize;
     margin-bottom: 16px;
 `;
 
-export const PokemonDetailsInfoDataAbilitiesModalWrapperAbilities = styled.div`
+export const PokemonDetailsInfoDataAbilitiesModalName = styled.h2`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: .85rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;
+    margin-bottom: 16px;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesModalValues = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
 `;
 
-export const PokemonDetailsInfoDataAbilitiesModalWrapperAbilitiesName = styled.h3`
+export const PokemonDetailsInfoDataAbilitiesModalClose = styled(AiFillCloseCircle)`
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 1.5rem;
     color: ${({ theme }) => theme.colors.primary};
-    font-size: .75rem;
-    font-weight: 700;
-    text-align: left;
-    text-transform: capitalize;
-    margin: 16px 0 8px 0 ;
+    cursor: pointer;
+
+    &:hover {
+        color: ${({ theme }) => theme.colors.primary};
+    }
 `;
 
-export const PokemonDetailsInfoDataAbilitiesModalWrapperAbilitiesDescription = styled.p`
+export const PokemonDetailsInfoDataAbilitiesModalDescription = styled.p`
     color: ${({ theme }) => theme.colors.primary};
     font-size: .75rem;
     font-weight: 400;
     text-align: left;
-    text-transform: capitalize;
-    margin: 0 0 8px 0 ;
 `;
