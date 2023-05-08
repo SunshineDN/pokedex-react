@@ -406,3 +406,56 @@ export const PokemonDetailsEvolutionImage = styled.div`
     width: 70px;
     height: 70px;
 `;
+
+export const PokemonDetailsInfoDataAbilitiesModalContainer = styled.div`
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesModalWrapper = styled.div`
+    height: 100%;
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.containerHighlight};
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 16px;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesModalTitle = styled.h2`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;
+    margin-bottom: 16px;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesModalWrapperAbilities = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesModalWrapperAbilitiesName = styled.h3`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: .75rem;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;
+    margin: 16px 0 8px 0 ;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesModalWrapperAbilitiesDescription = styled.p`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: .75rem;
+    font-weight: 400;
+    text-align: left;
+    text-transform: capitalize;
+    margin: 0 0 8px 0 ;
+`;

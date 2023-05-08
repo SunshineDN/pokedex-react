@@ -42,6 +42,12 @@ import {
   PokemonDetailsEvolutionName,
   PokemonDetailsInfoDataAbilitiesContainer,
   PokemonDetailsInfoDataAbilitiesIcon,
+  PokemonDetailsInfoDataAbilitiesModalContainer,
+  PokemonDetailsInfoDataAbilitiesModalWrapper,
+  PokemonDetailsInfoDataAbilitiesModalTitle,
+  PokemonDetailsInfoDataAbilitiesModalWrapperAbilities,
+  PokemonDetailsInfoDataAbilitiesModalWrapperAbilitiesName,
+  PokemonDetailsInfoDataAbilitiesModalWrapperAbilitiesDescription,
 } from "../components/Pokemon";
 
 import { useParams, useNavigate } from "react-router-dom";
@@ -60,9 +66,12 @@ const PokemonDetails = () => {
   const [pokemon, setPokemon] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+  const [abilityModal, setAbilityModal] = useState(true);
+
   const descFiltered = pokemon?.species?.flavor_text_entries?.filter(
     (item) => item?.language?.name === "en"
   )[0]?.flavor_text;
+
   const generaFiltered = pokemon?.species?.genera
     ?.filter((item) => item?.language?.name === "en")[0]
     ?.genus?.split(" ");
@@ -302,7 +311,7 @@ const PokemonDetails = () => {
             <PokemonDetailsInfoDataFrame>
               <PokemonDetailsInfoDataTitle>Weight</PokemonDetailsInfoDataTitle>
               <PokemonDetailsInfoDataValue>
-                {(pokemon.weight / 2.205).toFixed(2)} kg
+                {(pokemon.weight / 10).toFixed(2)} kg
               </PokemonDetailsInfoDataValue>
             </PokemonDetailsInfoDataFrame>
             <PokemonDetailsInfoDataFrame>
@@ -315,7 +324,9 @@ const PokemonDetails = () => {
               <PokemonDetailsInfoDataTitle>Abilities</PokemonDetailsInfoDataTitle>
               <PokemonDetailsInfoDataAbilitiesContainer>
                 {pokemon.abilities.map((item, index) => (
-                  <PokemonDetailsInfoDataValue key={index}>
+                  <PokemonDetailsInfoDataValue key={index} onClick={() => {
+
+                  }}>
                     <abbr title={item?.effect} style={{
                       cursor: "help"
                     }}>
