@@ -60,9 +60,11 @@ const PokemonDetails = () => {
   const [pokemon, setPokemon] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+
   const descFiltered = pokemon?.species?.flavor_text_entries?.filter(
     (item) => item?.language?.name === "en"
   )[0]?.flavor_text;
+  
   const generaFiltered = pokemon?.species?.genera
     ?.filter((item) => item?.language?.name === "en")[0]
     ?.genus?.split(" ");
