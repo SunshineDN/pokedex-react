@@ -3,6 +3,8 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import PokemonBG from "../assets/pokemon-bg.svg";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { MdSwitchAccessShortcut } from "react-icons/md";
+import { MdFavorite } from "react-icons/md";
 
 export const PokemonDetailsContainer = styled.div`
     background-color: ${({ theme }) => theme.colors.background};
@@ -21,12 +23,36 @@ export const PokemonDetailsHeader = styled.div`
     margin-top: 54px;
 `;
 
-export const PokemonDetailsTitle = styled.h1`
+export const PokemonDetailsTitle = styled.div`
     color: ${({ theme }) => theme.colors.primary};
     font-size: 1.5rem;
     font-weight: 700;
     text-align: right;
     text-transform: capitalize;
+    display: inline-block;
+    position: relative;
+`;
+
+export const PokemonDetailsFavorite = styled(MdFavorite)`
+    color: ${(props) => props.isFavorite ? props.theme.colors.favorite : props.theme.colors.primary};
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    margin-left: 8px;
+    transition: all 0.3s ease-in-out;
+
+    @keyframes pop {
+        0% {
+            transform: scale(.9);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
 `;
 
 export const PokemonDetailsBackIcon = styled(IoMdArrowRoundBack)`
@@ -61,6 +87,19 @@ export const PokemonDetailsImg = styled.div`
     z-index: 2;
     top: 10%;
     left: 10%;
+`;
+
+export const PokemonDetailsImgSwitch = styled(MdSwitchAccessShortcut)`
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 2.2rem;
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors.containerHighlight};
+    border-radius: 50%;
+    padding: 4px;
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    right: -24%;
 `;
 
 export const PokemonDetailsInfoContainer = styled.div`

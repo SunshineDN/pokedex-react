@@ -6,6 +6,7 @@ import HeaderImg from "../assets/img/img_header.png"
 export const Container = styled.div`
     background-color: ${({ theme }) => theme.colors.background};
     min-height: 100vh;
+    padding-bottom: 85px;
 `;
 
 export const HomeContainer = styled.div`

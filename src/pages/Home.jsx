@@ -32,6 +32,8 @@ import {
 } from "../components/SearchPoke";
 import Loader from "../components/Loader/Loader";
 
+import handleChangeID from "../hooks/handleChangeID";
+
 const Home = () => {
   const [pokemons, setPokemons] = useState([]);
   const [pokemonsBkp, setPokemonsBkp] = useState([]);
@@ -40,13 +42,13 @@ const Home = () => {
   const navigate = useNavigate();
   
   function handleSearchPokemon() {
-    const search = document.querySelector('input').value.split(" ").join("");
+    const search = document?.querySelector('input')?.value?.split(" ")?.join("");
     const filter = pokemonsBkp.filter((pokemon) => {
       return pokemon.name.toLowerCase().includes(search.toLowerCase()) === true;
     });
     const sorted = filter.sort((a, b) => a.name < b.name ? -1 : true)
     
-    if (search === document.querySelector("#initial > div.sc-ePzlA-D.kcZQfr > h1").textContent.split(" ").pop()) {
+    if (search === document.querySelector("#initial > div.sc-ePzlA-D.kcZQfr > h1")?.textContent?.split(" ")?.pop()) {
       return;
     }
 
@@ -119,9 +121,9 @@ const Home = () => {
             </PokedexTitle>
             <PokedexCardsContainer>
                 {pokemons.map((pokemon) => (
-                  <LinkPokemon to={`/pokemon/${pokemon.url.split('/')[6]}`} key={pokemon.url.split('/')[6]} id={pokemon.url.split('/')[6]}>
+                  <LinkPokemon to={`pokemon/${pokemon.url.split('/')[6]}`} key={pokemon.url.split('/')[6]} id={pokemon.url.split('/')[6]}>
                     <PokedexCard>
-                      <PokedexCardId>#{pokemon.url.split('/')[6]}</PokedexCardId>
+                      <PokedexCardId>#{handleChangeID(pokemon.url.split('/')[6])}</PokedexCardId>
                       <PokedexCardName>{pokemon.name}</PokedexCardName>
                       <PokedexCardImg
                           image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${

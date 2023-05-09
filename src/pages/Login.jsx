@@ -38,7 +38,7 @@ const Login = () => {
             <Redirect to={"/forgot"}>Forgot your password?</Redirect>
             <Redirect to={"/register"}>Sign up</Redirect>
           </Links>
-          <Button type="submit" onClick={() => navigate('/home')}>Login</Button>
+          <Button type="submit" onClick={() => navigate('/main/home')}>Login</Button>
         </FormWrapper>
       </FormContainer>
     </Container>

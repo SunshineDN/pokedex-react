@@ -5,8 +5,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Forgot from "./pages/Forgot"
 import Validation from "./pages/Validation"
-import Home from "./pages/Home"
-import PokemonDetails from "./pages/PokemonDetails"
+import MainPage from "./pages/MainPage"
 
 function App() {
 
@@ -30,14 +29,14 @@ function App() {
 
   return (
       <HashRouter>
-        <Routes>
-          <Route path="/" element={<Validation isLogged={isLogged} />} />
-          <Route path="register" element={<Register users={users} handleAddUser={handleAddUser} />} />
-          <Route path="login" element={<Login />} users={users} handleLogin={handleLogin} />
-          <Route path="forgot" element={<Forgot />} users={users} />
-          <Route path="home" element={<Home /> } />
-          <Route path="pokemon/:id" element={<PokemonDetails />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Validation isLogged={isLogged} />} />
+            <Route path="register" element={<Register users={users} handleAddUser={handleAddUser} />} />
+            <Route path="login" element={<Login />} users={users} handleLogin={handleLogin} />
+            <Route path="forgot" element={<Forgot />} users={users} />
+            <Route path={"*"} element={<h1>Not Found</h1>} />
+            <Route path={"main/*"} element={<MainPage />} />
+          </Routes>
       </HashRouter>
   )
 }

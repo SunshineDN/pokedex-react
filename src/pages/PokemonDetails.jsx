@@ -5,6 +5,7 @@ import {
   PokemonDetailsContainer,
   PokemonDetailsHeader,
   PokemonDetailsImg,
+  PokemonDetailsImgSwitch,
   PokemonDetailsImgBackground,
   PokemonDetailsImgContainer,
   PokemonDetailsInfoContainer,
@@ -49,6 +50,7 @@ import {
   PokemonDetailsInfoDataAbilitiesModalClose,
   PokemonDetailsInfoDataAbilitiesModalValues,
   PokemonDetailsInfoDataAbilitiesModalTitle,
+  PokemonDetailsFavorite,
 } from "../components/Pokemon";
 
 import { useParams, useNavigate } from "react-router-dom";
@@ -61,26 +63,21 @@ import {
   LogoutIcon,
   Title,
 } from "../components/Main";
-// import { LinkPokemon } from "../components/Pokedex";
+
+import handleChangeID from "../hooks/handleChangeID";
 
 const PokemonDetails = () => {
   const [pokemon, setPokemon] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
-<<<<<<< HEAD
-=======
   const [abilityModal, setAbilityModal] = useState(false);
   const modalRef = useRef(null);
->>>>>>> 0401ec3cdaa15197b00e9e5a1cd7ab152b19c961
+  const [isShiny, setIsShiny] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const descFiltered = pokemon?.species?.flavor_text_entries?.filter(
     (item) => item?.language?.name === "en"
   )[0]?.flavor_text;
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 0401ec3cdaa15197b00e9e5a1cd7ab152b19c961
   const generaFiltered = pokemon?.species?.genera
     ?.filter((item) => item?.language?.name === "en")[0]
     ?.genus?.split(" ");
@@ -301,16 +298,18 @@ const PokemonDetails = () => {
       </HeaderContainer>
       <PokemonDetailsContainer>
         <PokemonDetailsHeader>
-          <PokemonDetailsBackIcon onClick={() => navigate("/home")} />
+          <PokemonDetailsBackIcon onClick={() => navigate("/main/home")} />
           <PokemonDetailsTitle>
-            {pokemon.name} #{pokemon.id}
+            {pokemon.name} #{handleChangeID(pokemon.id)}
+            <PokemonDetailsFavorite isFavorite={isFavorite} onClick={() => setIsFavorite(!isFavorite)} />
           </PokemonDetailsTitle>
         </PokemonDetailsHeader>
         <PokemonDetailsImgContainer>
           <PokemonDetailsImgBackground />
           <PokemonDetailsImg
-            image={pokemon.sprites.other["official-artwork"].front_default}
+            image={!isShiny ? pokemon.sprites.other["official-artwork"].front_default : pokemon.sprites.other["official-artwork"].front_shiny}
           />
+          <PokemonDetailsImgSwitch onClick={() => setIsShiny(!isShiny)} />
         </PokemonDetailsImgContainer>
         <PokemonDetailsInfoContainer>
           <PokemonDetailsInfoTitle>About</PokemonDetailsInfoTitle>
@@ -463,7 +462,7 @@ const PokemonDetails = () => {
           <PokemonDetailsEvolutionTitle>Evolution</PokemonDetailsEvolutionTitle>
           <PokemonDetailsEvolutionWrapper>
             {pokemon.species.evolution_chain.map((item) => (
-              <Link key={item?.id} to="initial" spy={true} smooth={true} offset={0} duration={1500} onClick={() => navigate(`/pokemon/${item?.id}`)} style={{textDecoration: "none", cursor: "pointer", userSelect: "none"}}>
+              <Link key={item?.id} to="initial" spy={true} smooth={true} offset={0} duration={1500} onClick={() => navigate(`/main/home/pokemon/${item?.id}`)} style={{textDecoration: "none", cursor: "pointer", userSelect: "none"}}>
                 <PokemonDetailsEvolutionBox type={item?.type} selected={item?.selected} to="initial" spy={true} smooth={true} offset={0} duration={500} >
                   <PokemonDetailsEvolutionImage image={item?.sprite} />
                   <PokemonDetailsEvolutionName>{item?.name}</PokemonDetailsEvolutionName>
