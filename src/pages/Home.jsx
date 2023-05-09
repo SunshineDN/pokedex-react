@@ -36,14 +36,19 @@ const Home = () => {
   const [pokemons, setPokemons] = useState([]);
   const [pokemonsBkp, setPokemonsBkp] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-
+  
   const navigate = useNavigate();
-
+  
   function handleSearchPokemon() {
-    const search = document.querySelector('input').value;
+    const search = document.querySelector('input').value.split(" ").join("");
     const filter = pokemonsBkp.filter((pokemon) => {
-      return pokemon.name.toLowerCase().includes(search.toLowerCase()) === true
+      return pokemon.name.toLowerCase().includes(search.toLowerCase()) === true;
     });
+    const sorted = filter.sort((a, b) => a.name < b.name ? -1 : true)
+    
+    if (search === document.querySelector("#initial > div.sc-ePzlA-D.kcZQfr > h1").textContent.split(" ").pop()) {
+      return;
+    }
 
     if (search === '') {
       setPokemons(pokemonsBkp);
@@ -55,7 +60,7 @@ const Home = () => {
       alert('Pokemon não encontrado');
       return;
     }
-    setPokemons(filter);
+    setPokemons(sorted);
     setIsSearching(true);
   }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Divider,
   PokemonDetailsBackIcon,
@@ -42,6 +42,13 @@ import {
   PokemonDetailsEvolutionName,
   PokemonDetailsInfoDataAbilitiesContainer,
   PokemonDetailsInfoDataAbilitiesIcon,
+  PokemonDetailsInfoDataAbilitiesModalContainer,
+  PokemonDetailsInfoDataAbilitiesModalWrapper,
+  PokemonDetailsInfoDataAbilitiesModalName,
+  PokemonDetailsInfoDataAbilitiesModalDescription,
+  PokemonDetailsInfoDataAbilitiesModalClose,
+  PokemonDetailsInfoDataAbilitiesModalValues,
+  PokemonDetailsInfoDataAbilitiesModalTitle,
 } from "../components/Pokemon";
 
 import { useParams, useNavigate } from "react-router-dom";
@@ -60,11 +67,20 @@ const PokemonDetails = () => {
   const [pokemon, setPokemon] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
+<<<<<<< HEAD
+=======
+  const [abilityModal, setAbilityModal] = useState(false);
+  const modalRef = useRef(null);
+>>>>>>> 0401ec3cdaa15197b00e9e5a1cd7ab152b19c961
 
   const descFiltered = pokemon?.species?.flavor_text_entries?.filter(
     (item) => item?.language?.name === "en"
   )[0]?.flavor_text;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 0401ec3cdaa15197b00e9e5a1cd7ab152b19c961
   const generaFiltered = pokemon?.species?.genera
     ?.filter((item) => item?.language?.name === "en")[0]
     ?.genus?.split(" ");
@@ -89,6 +105,21 @@ const PokemonDetails = () => {
       return "SPD";
     }
   }
+
+  useEffect(() => {
+    const handleClickOutsideModal = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setAbilityModal(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutsideModal);
+
+    return () => {
+      document.addEventListener("mousedown", handleClickOutsideModal);
+    };
+  }, []);
+
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
@@ -290,7 +321,7 @@ const PokemonDetails = () => {
             <PokemonDetailsInfoDataFrame>
               <PokemonDetailsInfoDataTitle>Height</PokemonDetailsInfoDataTitle>
               <PokemonDetailsInfoDataValue>
-                {(pokemon.height / 3.281).toFixed(2)} m
+                {(pokemon.height / 10).toFixed(2)} m
               </PokemonDetailsInfoDataValue>
             </PokemonDetailsInfoDataFrame>
             <PokemonDetailsInfoDataFrame>
@@ -304,7 +335,7 @@ const PokemonDetails = () => {
             <PokemonDetailsInfoDataFrame>
               <PokemonDetailsInfoDataTitle>Weight</PokemonDetailsInfoDataTitle>
               <PokemonDetailsInfoDataValue>
-                {(pokemon.weight / 2.205).toFixed(2)} kg
+                {(pokemon.weight / 10).toFixed(2)} kg
               </PokemonDetailsInfoDataValue>
             </PokemonDetailsInfoDataFrame>
             <PokemonDetailsInfoDataFrame>
@@ -317,7 +348,9 @@ const PokemonDetails = () => {
               <PokemonDetailsInfoDataTitle>Abilities</PokemonDetailsInfoDataTitle>
               <PokemonDetailsInfoDataAbilitiesContainer>
                 {pokemon.abilities.map((item, index) => (
-                  <PokemonDetailsInfoDataValue key={index}>
+                  <PokemonDetailsInfoDataValue key={index} onClick={() => {
+                    setAbilityModal(true)
+                  }}>
                     <abbr title={item?.effect} style={{
                       cursor: "help"
                     }}>
@@ -326,6 +359,26 @@ const PokemonDetails = () => {
                     </abbr>
                   </PokemonDetailsInfoDataValue>
                 ))}
+                {abilityModal && (
+                  <PokemonDetailsInfoDataAbilitiesModalContainer>
+                    <PokemonDetailsInfoDataAbilitiesModalWrapper ref={modalRef}>
+                    <PokemonDetailsInfoDataAbilitiesModalTitle>Abilities</PokemonDetailsInfoDataAbilitiesModalTitle>
+                    {pokemon.abilities?.map((item, index) => (
+                      <PokemonDetailsInfoDataAbilitiesModalValues key={index}>
+                        <PokemonDetailsInfoDataAbilitiesModalName key={index} >
+                          {item?.name?.charAt(0)?.toUpperCase() + item?.name?.slice(1)}
+                        </PokemonDetailsInfoDataAbilitiesModalName>
+                        <PokemonDetailsInfoDataAbilitiesModalDescription>
+                          {item?.effect?.length > 0 ? item?.effect?.split(/[\n\f]/)?.join(" ") : "Unknown"}
+                        </PokemonDetailsInfoDataAbilitiesModalDescription>
+                        <PokemonDetailsInfoDataAbilitiesModalClose  onClick={() => {
+                          setAbilityModal(!abilityModal)
+                        }}/>
+                      </PokemonDetailsInfoDataAbilitiesModalValues>
+                    ))}
+                    </PokemonDetailsInfoDataAbilitiesModalWrapper>
+                  </PokemonDetailsInfoDataAbilitiesModalContainer>
+                )}
               </PokemonDetailsInfoDataAbilitiesContainer>
             </PokemonDetailsInfoDataFrame>
           </PokemonDetailsInfoDataContainer>
