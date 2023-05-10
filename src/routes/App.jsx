@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { Routes, Route, HashRouter } from "react-router-dom" //BrowserRouter removido e HashRouter adicionado
 
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Forgot from "./pages/Forgot"
-import Validation from "./pages/Validation"
-import MainPage from "./pages/MainPage"
+import Login from "../pages/Login"
+import Register from "../pages/Register"
+import Forgot from "../pages/Forgot"
+import Validation from "../pages/Validation"
+import MainPage from "../pages/MainPage"
 
 function App() {
 

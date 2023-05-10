@@ -1,79 +1,36 @@
-import { useEffect, useRef, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import {
   Divider,
-  PokemonDetailsBackIcon,
   PokemonDetailsContainer,
-  PokemonDetailsHeader,
-  PokemonDetailsImg,
-  PokemonDetailsImgSwitch,
-  PokemonDetailsImgBackground,
-  PokemonDetailsImgContainer,
   PokemonDetailsInfoContainer,
   PokemonDetailsInfoDataContainer,
-  PokemonDetailsInfoDataFrame,
-  PokemonDetailsInfoDataTitle,
-  PokemonDetailsInfoDataValue,
   PokemonDetailsInfoDesc,
   PokemonDetailsInfoTitle,
-  PokemonDetailsInfoTypeWrapper,
-  PokemonDetailsInfoTypeIcon,
-  PokemonDetailsInfoTypeTag,
-  PokemonDetailsInfoTypeTagContainer,
-  PokemonDetailsInfoTypeTitle,
   PokemonDetailsInfoTypeWeaknessContainer,
-  PokemonDetailsTitle,
-  PokemonDetailsInfoTypeContainer,
-  PokemonDetailsStatusBar,
-  PokemonDetailsStatusBarContainer,
-  PokemonDetailsStatusBarTitle,
-  PokemonDetailsStatusContainer,
-  PokemonDetailsStatusTitle,
-  PokemonDetailsStatusBarProgress,
-  PokemonDetailsStatusBarProgressValue,
-  PokemonDetailsMovesContainer,
-  PokemonDetailsMovesTitle,
-  PokemonDetailsMovesName,
-  PokemonDetailsMovesWrapper,
-  PokemonDetailsMovesTagContainer,
-  PokemonDetailsEvolutionContainer,
-  PokemonDetailsEvolutionTitle,
-  PokemonDetailsEvolutionWrapper,
-  PokemonDetailsEvolutionBox,
-  PokemonDetailsEvolutionImage,
-  PokemonDetailsEvolutionName,
-  PokemonDetailsInfoDataAbilitiesContainer,
-  PokemonDetailsInfoDataAbilitiesIcon,
-  PokemonDetailsInfoDataAbilitiesModalContainer,
-  PokemonDetailsInfoDataAbilitiesModalWrapper,
-  PokemonDetailsInfoDataAbilitiesModalName,
-  PokemonDetailsInfoDataAbilitiesModalDescription,
-  PokemonDetailsInfoDataAbilitiesModalClose,
-  PokemonDetailsInfoDataAbilitiesModalValues,
-  PokemonDetailsInfoDataAbilitiesModalTitle,
-  PokemonDetailsFavorite,
-} from "../components/Pokemon";
-
-import { useParams, useNavigate } from "react-router-dom";
-import { Link } from "react-scroll";
-
+} from "../components/UniquePokemon/Pokemon";
+import PokemonImgContainer from "../components/UniquePokemon/PokemonImgContainer";
+import PokemonDataFrame from "../components/UniquePokemon/PokemonDataFrame";
+import PokemonHeader from "../components/UniquePokemon/PokemonHeader";
+import PokemonTypeWeakness from "../components/UniquePokemon/PokemonTypeWeakness";
+import PokemonStatus from "../components/UniquePokemon/PokemonStatus";
+import PokemonMoves from "../components/UniquePokemon/PokemonMoves";
+import PokemonEvolutions from "../components/UniquePokemon/PokemonEvolutions";
 import Loader from "../components/Loader/Loader";
-import {
-  Container,
-  HeaderContainer,
-  LogoutIcon,
-  Title,
-} from "../components/Main";
+import { Container } from "../components/Main";
 
-import handleChangeID from "../hooks/handleChangeID";
-
-const PokemonDetails = () => {
+const PokemonDetails = ({ favorites, addFavorite, removeFavorite }) => {
   const [pokemon, setPokemon] = useState(null);
-  const navigate = useNavigate();
   const { id } = useParams();
   const [abilityModal, setAbilityModal] = useState(false);
-  const modalRef = useRef(null);
   const [isShiny, setIsShiny] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(favorites.filter((item) => item.id.toString() === id.toString()).length > 0 ? true : false);
+  
+  useEffect(() => {
+    setIsFavorite(favorites.filter((item) => item.id.toString() === id.toString()).length > 0 ? true : false);
+  }, [favorites, id])
 
   const descFiltered = pokemon?.species?.flavor_text_entries?.filter(
     (item) => item?.language?.name === "en"
@@ -102,21 +59,6 @@ const PokemonDetails = () => {
       return "SPD";
     }
   }
-
-  useEffect(() => {
-    const handleClickOutsideModal = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setAbilityModal(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutsideModal);
-
-    return () => {
-      document.addEventListener("mousedown", handleClickOutsideModal);
-    };
-  }, []);
-
 
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
@@ -224,19 +166,19 @@ const PokemonDetails = () => {
             return {
               chain
             }
-          })
+          });
 
         let firstEvolution = evolutionChain.chain.evolves_to.map((item) => {
-          return item.species.name
+          return item.species.url.split('/')[6]
         })
 
         let secondEvolution = evolutionChain.chain.evolves_to.map((item) => {
           return item.evolves_to.map((item) => {
-            return item.species.name
+            return item.species.url.split('/')[6]
           })
         })
 
-        let evolution = [evolutionChain?.chain?.species?.name, ...firstEvolution, ...secondEvolution[0] || []]
+        let evolution = [evolutionChain?.chain?.species?.url.split('/')[6], ...firstEvolution, ...secondEvolution[0] || []]
 
         let evolutionData = await Promise.all(
           evolution.map(
@@ -252,6 +194,7 @@ const PokemonDetails = () => {
                   }
                 }
               )
+              .catch((error) => console.log(error))
             )
           )
         
@@ -290,192 +233,37 @@ const PokemonDetails = () => {
 
   return (
     <Container id="initial">
-      <HeaderContainer>
-        <Title to="initial" spy={true} smooth={true} offset={0} duration={500}>
-          Pokédex
-        </Title>
-        <LogoutIcon onClick={() => navigate("/login")} />
-      </HeaderContainer>
       <PokemonDetailsContainer>
-        <PokemonDetailsHeader>
-          <PokemonDetailsBackIcon onClick={() => navigate("/main/home")} />
-          <PokemonDetailsTitle>
-            {pokemon.name} #{handleChangeID(pokemon.id)}
-            <PokemonDetailsFavorite isFavorite={isFavorite} onClick={() => setIsFavorite(!isFavorite)} />
-          </PokemonDetailsTitle>
-        </PokemonDetailsHeader>
-        <PokemonDetailsImgContainer>
-          <PokemonDetailsImgBackground />
-          <PokemonDetailsImg
-            image={!isShiny ? pokemon.sprites.other["official-artwork"].front_default : pokemon.sprites.other["official-artwork"].front_shiny}
-          />
-          <PokemonDetailsImgSwitch onClick={() => setIsShiny(!isShiny)} />
-        </PokemonDetailsImgContainer>
+        <PokemonHeader removeFavorite={removeFavorite} addFavorite={addFavorite} name={pokemon?.name} id={pokemon?.id} isFavorite={isFavorite} setIsFavorite={setIsFavorite} />
+        <PokemonImgContainer isShiny={isShiny} sprite_default={pokemon?.sprites?.other["official-artwork"]?.front_default} sprite_shiny={pokemon?.sprites?.other["official-artwork"]?.front_shiny} setIsShiny={setIsShiny} />
+        
         <PokemonDetailsInfoContainer>
           <PokemonDetailsInfoTitle>About</PokemonDetailsInfoTitle>
           <PokemonDetailsInfoDesc>
             &quot;{descFiltered?.length > 0 ? descFiltered?.split(/[\n\f]/)?.join(" ") : "Unknown"}&quot;
           </PokemonDetailsInfoDesc>
+
           <PokemonDetailsInfoDataContainer>
-            <PokemonDetailsInfoDataFrame>
-              <PokemonDetailsInfoDataTitle>Height</PokemonDetailsInfoDataTitle>
-              <PokemonDetailsInfoDataValue>
-                {(pokemon.height / 10).toFixed(2)} m
-              </PokemonDetailsInfoDataValue>
-            </PokemonDetailsInfoDataFrame>
-            <PokemonDetailsInfoDataFrame>
-              <PokemonDetailsInfoDataTitle>
-                Category
-              </PokemonDetailsInfoDataTitle>
-              <PokemonDetailsInfoDataValue>
-                {generaFiltered?.length > 0 ? generaFiltered[0] : "Unknown"}
-              </PokemonDetailsInfoDataValue>
-            </PokemonDetailsInfoDataFrame>
-            <PokemonDetailsInfoDataFrame>
-              <PokemonDetailsInfoDataTitle>Weight</PokemonDetailsInfoDataTitle>
-              <PokemonDetailsInfoDataValue>
-                {(pokemon.weight / 10).toFixed(2)} kg
-              </PokemonDetailsInfoDataValue>
-            </PokemonDetailsInfoDataFrame>
-            <PokemonDetailsInfoDataFrame>
-              <PokemonDetailsInfoDataTitle>Gender</PokemonDetailsInfoDataTitle>
-              <PokemonDetailsInfoDataValue>
-                [Coming soon...]
-              </PokemonDetailsInfoDataValue>
-            </PokemonDetailsInfoDataFrame>
-            <PokemonDetailsInfoDataFrame>
-              <PokemonDetailsInfoDataTitle>Abilities</PokemonDetailsInfoDataTitle>
-              <PokemonDetailsInfoDataAbilitiesContainer>
-                {pokemon.abilities.map((item, index) => (
-                  <PokemonDetailsInfoDataValue key={index} onClick={() => {
-                    setAbilityModal(true)
-                  }}>
-                    <abbr title={item?.effect} style={{
-                      cursor: "help"
-                    }}>
-                      {item?.name?.charAt(0)?.toUpperCase() + item?.name?.slice(1)}
-                      <PokemonDetailsInfoDataAbilitiesIcon />
-                    </abbr>
-                  </PokemonDetailsInfoDataValue>
-                ))}
-                {abilityModal && (
-                  <PokemonDetailsInfoDataAbilitiesModalContainer>
-                    <PokemonDetailsInfoDataAbilitiesModalWrapper ref={modalRef}>
-                    <PokemonDetailsInfoDataAbilitiesModalTitle>Abilities</PokemonDetailsInfoDataAbilitiesModalTitle>
-                    {pokemon.abilities?.map((item, index) => (
-                      <PokemonDetailsInfoDataAbilitiesModalValues key={index}>
-                        <PokemonDetailsInfoDataAbilitiesModalName key={index} >
-                          {item?.name?.charAt(0)?.toUpperCase() + item?.name?.slice(1)}
-                        </PokemonDetailsInfoDataAbilitiesModalName>
-                        <PokemonDetailsInfoDataAbilitiesModalDescription>
-                          {item?.effect?.length > 0 ? item?.effect?.split(/[\n\f]/)?.join(" ") : "Unknown"}
-                        </PokemonDetailsInfoDataAbilitiesModalDescription>
-                        <PokemonDetailsInfoDataAbilitiesModalClose  onClick={() => {
-                          setAbilityModal(!abilityModal)
-                        }}/>
-                      </PokemonDetailsInfoDataAbilitiesModalValues>
-                    ))}
-                    </PokemonDetailsInfoDataAbilitiesModalWrapper>
-                  </PokemonDetailsInfoDataAbilitiesModalContainer>
-                )}
-              </PokemonDetailsInfoDataAbilitiesContainer>
-            </PokemonDetailsInfoDataFrame>
+            <PokemonDataFrame title={"Height"} value={`${(pokemon?.height / 10).toFixed(2)} m`} />
+            <PokemonDataFrame title={"Category"} value={generaFiltered?.length > 0 ? generaFiltered[0] : "Unknown"} />
+            <PokemonDataFrame title={"Weight"} value={`${(pokemon?.weight / 10).toFixed(2)} kg`} />
+            <PokemonDataFrame title={"Gender"} value={`[Coming soon...]`} />
+            <PokemonDataFrame title={"Abilities"} abilities={pokemon?.abilities} abilityModal={abilityModal} setAbilityModal={setAbilityModal} />
           </PokemonDetailsInfoDataContainer>
+
           <Divider />
+
           <PokemonDetailsInfoTypeWeaknessContainer>
-            <PokemonDetailsInfoTypeWrapper>
-              <PokemonDetailsInfoTypeTitle>Type</PokemonDetailsInfoTypeTitle>
-              {pokemon.types.map((item, index) => (
-                <PokemonDetailsInfoTypeTagContainer key={index}>
-                  <PokemonDetailsInfoTypeTag type={item?.type?.name}>
-                    <PokemonDetailsInfoTypeIcon type={item?.type?.name} />
-                    {item?.type?.name}
-                  </PokemonDetailsInfoTypeTag>
-                </PokemonDetailsInfoTypeTagContainer>
-              ))}
-            </PokemonDetailsInfoTypeWrapper>
-            <PokemonDetailsInfoTypeWrapper>
-              <PokemonDetailsInfoTypeTitle>
-                Weakness
-              </PokemonDetailsInfoTypeTitle>
-              <PokemonDetailsInfoTypeContainer>
-                {pokemon.weaknesses
-                  .filter(
-                    (obj, index, self) =>
-                      index ===
-                      self.findIndex(
-                        (t) => t.id === obj.id && t.name === obj.name
-                      )
-                  )
-                  .map((item, index) => (
-                    <PokemonDetailsInfoTypeTagContainer key={index}>
-                      <PokemonDetailsInfoTypeTag type={item?.name}>
-                        <PokemonDetailsInfoTypeIcon type={item?.name} />
-                        {item?.name}
-                      </PokemonDetailsInfoTypeTag>
-                    </PokemonDetailsInfoTypeTagContainer>
-                  ))}
-              </PokemonDetailsInfoTypeContainer>
-            </PokemonDetailsInfoTypeWrapper>
+            <PokemonTypeWeakness title={"Type"} types={pokemon?.types} />
+            <PokemonTypeWeakness title={"Weakness"} weaknesses={pokemon?.weaknesses} />
           </PokemonDetailsInfoTypeWeaknessContainer>
+
         </PokemonDetailsInfoContainer>
-        <PokemonDetailsStatusContainer>
-          <PokemonDetailsStatusTitle>Stats</PokemonDetailsStatusTitle>
-          {pokemon.stats.map((item, index) => (
-            <PokemonDetailsStatusBarContainer key={index}>
-              <PokemonDetailsStatusBarTitle>
-                {item.name}
-              </PokemonDetailsStatusBarTitle>
-              <PokemonDetailsStatusBar>
-                <PokemonDetailsStatusBarProgress
-                  value={item.value}
-                  type={pokemon?.types[0]?.type?.name}
-                >
-                  <PokemonDetailsStatusBarProgressValue
-                    type={pokemon?.types[0]?.type?.name}
-                  >
-                    {item.value}/255
-                  </PokemonDetailsStatusBarProgressValue>
-                </PokemonDetailsStatusBarProgress>
-              </PokemonDetailsStatusBar>
-            </PokemonDetailsStatusBarContainer>
-          ))}
-        </PokemonDetailsStatusContainer>
-        <PokemonDetailsMovesContainer>
-          <PokemonDetailsMovesTitle>Moves</PokemonDetailsMovesTitle>
-          {pokemon.moves.map((item, index) => (
-            <PokemonDetailsMovesWrapper key={index}>
-              <PokemonDetailsMovesName>{item?.name}</PokemonDetailsMovesName>
-              <PokemonDetailsMovesTagContainer>
-                <PokemonDetailsInfoTypeTag type={item?.type}>
-                  <PokemonDetailsInfoTypeIcon type={item?.type} />
-                  {item?.type}
-                </PokemonDetailsInfoTypeTag>
-              </PokemonDetailsMovesTagContainer>
-              {(pokemon.moves.length > 1 && index < 3) && (
-                <Divider />
-              )}
-            </PokemonDetailsMovesWrapper>
-          ))}
-        </PokemonDetailsMovesContainer>
-        <PokemonDetailsEvolutionContainer>
-          <PokemonDetailsEvolutionTitle>Evolution</PokemonDetailsEvolutionTitle>
-          <PokemonDetailsEvolutionWrapper>
-            {pokemon.species.evolution_chain.map((item) => (
-              <Link key={item?.id} to="initial" spy={true} smooth={true} offset={0} duration={1500} onClick={() => navigate(`/main/home/pokemon/${item?.id}`)} style={{textDecoration: "none", cursor: "pointer", userSelect: "none"}}>
-                <PokemonDetailsEvolutionBox type={item?.type} selected={item?.selected} to="initial" spy={true} smooth={true} offset={0} duration={500} >
-                  <PokemonDetailsEvolutionImage image={item?.sprite} />
-                  <PokemonDetailsEvolutionName>{item?.name}</PokemonDetailsEvolutionName>
-                  <PokemonDetailsInfoTypeTag type={item?.type}>
-                    <PokemonDetailsInfoTypeIcon type={item?.type} />
-                    {item?.type}
-                  </PokemonDetailsInfoTypeTag>
-                </PokemonDetailsEvolutionBox>
-              </Link>
-            ))}
-          </PokemonDetailsEvolutionWrapper>
-        </PokemonDetailsEvolutionContainer>
+        <PokemonStatus title={"Stats"} stats={pokemon?.stats} type={pokemon?.types[0]?.type?.name} maxValue={255} />
+        <PokemonMoves title={"Moves"} moves={pokemon?.moves} />
+        <PokemonEvolutions title={"Evolution chain"} evolutions={pokemon?.species?.evolution_chain} />
       </PokemonDetailsContainer>
+
     </Container>
   );
 };

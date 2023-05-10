@@ -25,14 +25,30 @@ export const TabBarContainer = styled.div`
 `;
 
 export const TabBarLink = styled(NavLink)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   text-decoration: none;
+  
+  &.active {
+    position: relative;
+
+    &::after {
+      content: "";
+      height: 4px;
+      width: 50px;
+      position: absolute;
+      display: block;
+      top: -60.5%;
+      left: -11.5%;
+      background-color: #4BC9FF;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      transition: all 0.3s ease-in-out;
+    }
+  }
 
   &.active svg, &.active span {
     transition: all 0.2s ease-in-out;
-    color: #fff;
+    font-weight: 700;
+    color: #4BC9FF;
   }
 `;
 
@@ -41,12 +57,13 @@ export const Group = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 40px;
 `;
 
 export const Text = styled.span`
   color: ${({ theme }) => theme.colors.border};
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 400;
   letter-spacing: 0.1em;
 `;
 

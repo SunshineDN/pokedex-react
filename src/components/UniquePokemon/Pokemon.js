@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import PokemonBG from "../assets/pokemon-bg.svg";
+import PokemonBG from "../../assets/pokemon-bg.svg";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { MdSwitchAccessShortcut } from "react-icons/md";
@@ -34,7 +34,7 @@ export const PokemonDetailsTitle = styled.div`
 `;
 
 export const PokemonDetailsFavorite = styled(MdFavorite)`
-    color: ${(props) => props.isFavorite ? props.theme.colors.favorite : props.theme.colors.primary};
+    color: ${(props) => props.isfavorite !== "false" ? props.theme.colors.favorite : props.theme.colors.primary};
     font-size: 1.5rem;
     cursor: pointer;
     position: relative;
@@ -228,6 +228,7 @@ export const PokemonDetailsInfoTypeTitle = styled.h3`
     font-weight: 700;
     text-align: right;
     text-transform: capitalize;
+    margin-top: 1.5%;
 `;
 
 export const PokemonDetailsInfoTypeTagContainer = styled.div`

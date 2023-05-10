@@ -11,6 +11,7 @@ import {
   Redirect,
   Links,
   Button,
+  Select,
 } from "../components/Form";
 
 
@@ -20,6 +21,15 @@ const Register = () => {
       <FormContainer>
         <FormWrapper>
           <FormTitle>Sign up</FormTitle>
+          <InputBox>
+            <Select type="select" required>
+              <option value={""} selected disabled></option>
+              <option value={"Boy"}>Boy</option>
+              <option value={"Girl"}>Girl</option>
+            </Select>
+            <LabelSpan>What you are?</LabelSpan>
+            <I></I>
+          </InputBox>
           <InputBox>
             <Input type="text" required />
             <LabelSpan>Username</LabelSpan>

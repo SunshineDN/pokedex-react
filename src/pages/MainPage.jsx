@@ -1,10 +1,12 @@
-import TabBarComponent from "../components/TabBar/TabBarComponent";
-import TabBarPages from "./TabBarPages";
+import HeaderComponent from "../components/HeaderTabBar/HeaderComponent";
+import TabBarComponent from "../components/HeaderTabBar/TabBarComponent";
+import TabBarRoutes from "../routes/TabBarRoutes";
 
 const MainPage = () => {
   return (
     <>
-      <TabBarPages />
+      <HeaderComponent />
+      <TabBarRoutes />
       <TabBarComponent />
     </>
   )

@@ -9,7 +9,7 @@ export const Container = styled.div`
   height: 100vh;
 
   & > div {
-    height: 600px;
+    height: 650px;
 
     &::before {
         background: none;
@@ -18,7 +18,7 @@ export const Container = styled.div`
     &::after {
         top: 0;
         left: 0;
-        height: 600px;
+        height: 650px;
         background: radial-gradient(circle, transparent, #f25e5e);
         animation: pulse 3s linear infinite;
         transform-origin: center ;

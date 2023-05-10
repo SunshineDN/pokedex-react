@@ -21,7 +21,7 @@ const TabBarComponent = () => {
       <TabBarLink to="favorites">
         <Group>
           <FavoriteIcon />
-          <Text>Favorite</Text>
+          <Text>Favorites</Text>
         </Group>
       </TabBarLink>
 

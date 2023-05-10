@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { MdFavorite } from "react-icons/md";
 
 export const LinkPokemon = styled(Link)`
     text-decoration: none;
@@ -15,6 +16,30 @@ export const PokedexContainer = styled.div`
     margin: 24px auto 16px;
     max-width: 400px;
     padding: 0 16px;
+    position: relative;
+`;
+
+export const PokedexFavorite = styled(MdFavorite)`
+    color: ${(props) => props.isfavorite !== "false" ? props.theme.colors.favorite : props.theme.colors.primary};
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    transition: all 0.3s ease-in-out;
+    z-index: 4;
+
+    @keyframes pop {
+        0% {
+            transform: scale(.9);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
 `;
 
 export const PokedexTitle = styled.h1`
