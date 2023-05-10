@@ -53,11 +53,13 @@ const Home = ({ favorites, addFavorite, removeFavorite }) => {
     setPokemons(sorted);
     setIsSearching(true);
   }
-
+  
+  
   function handleScroll() {
+    console.log(document.documentElement.offsetHeight - 500 <= window.innerHeight + document.documentElement.scrollTop)
     if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
+      window.innerHeight + document.documentElement.scrollTop <=
+      document.documentElement.offsetHeight - 500
     )
       return;
     setPage(page + 1);
