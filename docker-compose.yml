@@ -7,6 +7,12 @@ services:
       - "3000:3000"
     volumes:
       - .:/usr/app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://pokedex-react:poke321@localhost:5432/pokedexdb
+    networks:
+      - app-network
   db:
     image: postgres
     restart: always
@@ -15,9 +21,13 @@ services:
     environment:
       POSTGRES_USER: pokedex-react
       POSTGRES_PASSWORD: poke321
-      POSTGRES_DB: users
+      POSTGRES_DB: pokedexdb
     volumes:
       - data:/var/lib/postgresql/data
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   data:
