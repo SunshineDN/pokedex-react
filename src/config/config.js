@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
 
 const sequelize = new Sequelize(
-  process.env.PGDATABASE,
-  process.env.PGUSER,
-  process.env.PGPASSWORD,
+  'pokedexdb',
+  'pokedex-react',
+  'poke321',
   {
-    host: process.env.PGHOST,
+    host: 'db',
     dialect: 'postgres',
   }
 );
