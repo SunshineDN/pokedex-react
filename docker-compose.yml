@@ -8,21 +8,21 @@ services:
     depends_on:
       - db
     environment:
-      PGUSER: '${DB_USER}'
-      PGHOST: '${DB_HOST}'
-      PGDATABASE: '${DB_NAME}'
-      PGPASSWORD: '${DB_PASSWORD}'
-      EXTERNAL_PORT: '${PORT}'
-      JWT_SECRET: '${TOKEN_SECRET}'
+      PGUSER: pokedex-react
+      PGHOST: db
+      PGDATABASE: pokedexdb
+      PGPASSWORD: poke321
+      EXTERNAL_PORT: 3000
+      JWT_SECRET: s7GDdeXMOT5gTGY%V39jFaG5$Uk*#g3pS2J
   db:
     image: postgres
     restart: always
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: '${DB_USER}'
-      POSTGRES_PASSWORD: '${DB_PASSWORD}'
-      POSTGRES_DB: '${DB_NAME}'
+      POSTGRES_USER: pokedex-react
+      POSTGRES_PASSWORD: poke321
+      POSTGRES_DB: pokedexdb
     volumes:
       - data:/var/lib/postgresql/data
 
