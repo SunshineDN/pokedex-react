@@ -4,7 +4,7 @@ const app = express();
 const userRouter = require('./src/routes/user');
 const sequelize = require('./src/config/config');
 
-const PORT = 3000;
+const PORT = process.env.EXTERNAL_PORT || 3000;
 
 app.use(express.json());
 app.use('/users', userRouter);

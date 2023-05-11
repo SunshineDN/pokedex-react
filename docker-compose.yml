@@ -5,29 +5,26 @@ services:
     command: npm start
     ports:
       - "3000:3000"
-    volumes:
-      - .:/usr/app
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgres://pokedex-react:poke321@localhost:5432/pokedexdb
-    networks:
-      - app-network
+      PGUSER: ${DB_USER}
+      PGHOST: ${DB_HOST}
+      PGDATABASE: ${DB_NAME}
+      PGPASSWORD: ${DB_PASSWORD}
+      EXTERNAL_PORT: ${PORT}
+      JWT_SECRET: ${TOKEN_SECRET}
   db:
     image: postgres
     restart: always
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: pokedex-react
-      POSTGRES_PASSWORD: poke321
-      POSTGRES_DB: pokedexdb
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
       - data:/var/lib/postgresql/data
-
-networks:
-  app-network:
-    driver: bridge
 
 volumes:
   data:
