@@ -8,7 +8,7 @@ const sequelize = require('./src/config/config');
 const PORT = process.env.EXTERNAL_PORT || 3000;
 
 app.use(cors({
-  origin: ['https://sunshinedn.github.io/pokedex-react', 'http://localhost:3000', 'http://localhost:5173']
+  origin: ['https://sunshinedn.github.io', 'http://localhost:3000', 'http://localhost:5173']
 }));
 app.use(express.json());
 app.use('/users', userRouter);
