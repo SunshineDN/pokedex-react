@@ -22,7 +22,7 @@ const PokemonHeader = ({ name, id, isFavorite, setIsFavorite, addFavorite, remov
 
   return (
     <PokemonDetailsHeader>
-      <PokemonDetailsBackIcon onClick={() => navigate(-1)} />
+      <PokemonDetailsBackIcon onClick={() => navigate("/main/home")} />
       <PokemonDetailsTitle>
         {name} #{handleChangeID(id)}
         <PokemonDetailsFavorite isfavorite={isFavorite.toString()} onClick={(e) => {

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import {AiOutlineSearch} from "react-icons/ai";
 
 export const SearchContainer = styled.div`
@@ -13,6 +13,55 @@ export const SearchContainer = styled.div`
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.16);
     position: relative;
     z-index: 1;
+`;
+
+export const fadeIn = keyframes`
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
+
+export const SearchErrorBox = styled.div`
+    position: absolute;
+    z-index: 2;
+    bottom: -30px;
+    left: auto;
+    right: auto;
+    width: 75%;
+    background-color: ${({ theme }) => theme.colors.errorBox};
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 10px;
+    color: ${({ theme }) => theme.colors.errorText};
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    animation: ${fadeIn} .2s ease-in-out 1 forwards;
+
+    &::before {
+        content: "";
+        position: absolute;
+        z-index: 5;
+        top: -12px;
+        border-bottom: 20px solid ${({ theme }) => theme.colors.errorBox};
+        left: 0;
+        border-right: 22px solid transparent;
+    }
+`;
+
+export const SearchErrorText = styled.p`
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.errorText};
 `;
 
 export const SearchTitle = styled.h2`

@@ -105,8 +105,8 @@ export const PokedexCardImg = styled.div.attrs(props => ({
     }
     }))`
     background-size: contain;
-    width: 100px;
-    height: 100px;
+    width: 92%;
+    height: 92%;
     position: absolute;
     bottom: -19px;
     right: -10px;

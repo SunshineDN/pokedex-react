@@ -16,6 +16,8 @@ import {
 import SearchComponent from "../components/Search/SearchComponent";
 import Loader from "../components/Loader/Loader";
 import PokeCard from "../components/PokeCard/PokeCard";
+import usersAPI from "../api/usersAPI";
+import { getItemWithExpiration } from "../hooks/handleSession";
 
 const Home = ({ favorites, addFavorite, removeFavorite }) => {
   const [pokemons, setPokemons] = useState([]);
@@ -23,11 +25,30 @@ const Home = ({ favorites, addFavorite, removeFavorite }) => {
   const [isSearching, setIsSearching] = useState(false);
   const [page, setPage] = useState(0);
   const [itemsPerPage] = useState(100);
+  const [error, setError] = useState("");
 
   const start = page * itemsPerPage;
   const end = start + itemsPerPage;
 
   const visiblePokemons = pokemons.slice(0, end);
+
+  useEffect(() => {
+    const token = getItemWithExpiration("sessionID");
+    const getUser = async () => {
+      await usersAPI.get("data", {
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((response) => {
+          window.localStorage.setItem("user", JSON.stringify(response.data.user));
+        })
+        .catch((error) => {
+          console.log("error in getUser(): " + error);
+        });
+    };
+    getUser();
+  }, []);
   
   function handleSearchPokemon() {
     const search = document?.querySelector('input')?.value?.split(" ")?.join("");
@@ -47,7 +68,7 @@ const Home = ({ favorites, addFavorite, removeFavorite }) => {
     }
 
     if(filter.length === 0) {
-      alert('Pokemon não encontrado');
+      setError("No results found");
       return;
     }
     setPokemons(sorted);
@@ -92,7 +113,7 @@ const Home = ({ favorites, addFavorite, removeFavorite }) => {
           <ImgHeaderContainer>
             <ImgHeader></ImgHeader>
           </ImgHeaderContainer>
-          <SearchComponent handleSearchPokemon={handleSearchPokemon}/>
+          <SearchComponent handleSearchPokemon={handleSearchPokemon} error={error} setError={setError}/>
           <PokedexContainer>
             <PokedexTitle>
               {isSearching ? `${pokemons.length} search results for: ${document.querySelector('input').value}` : 'All pokémon'}

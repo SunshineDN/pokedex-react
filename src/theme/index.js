@@ -28,6 +28,8 @@ export const dark = () => ({
         formWaiting: "#8F8F8F",
         insetGlow: "rgba(255, 255, 255, 0.2)",
         favorite: "#C22E28",
+        errorBox: "#f8d7da",
+        errorText: "#721c24",
         types: {
             normal: { bg: "#A8A77A", color: "#1A1A1A", icon: Normal },
             fire: { bg: "#EE8130", color: "#1A1A1A", icon: Fire },

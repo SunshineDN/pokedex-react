@@ -4,13 +4,6 @@ const TabBarComponent = () => {
   return (
     <TabBarContainer>
 
-      <TabBarLink to="adjust">
-        <Group>
-          <AdjustIcon />
-          <Text>Adjust</Text>
-        </Group>
-      </TabBarLink>
-
       <TabBarLink to="home">
         <Group>
           <HomeIcon />
@@ -29,6 +22,13 @@ const TabBarComponent = () => {
         <Group>
           <UserIcon />
           <Text>Profile</Text>
+        </Group>
+      </TabBarLink>
+
+      <TabBarLink to="adjust">
+        <Group>
+          <AdjustIcon />
+          <Text>Adjust</Text>
         </Group>
       </TabBarLink>
 
