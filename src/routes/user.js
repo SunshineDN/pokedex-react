@@ -26,4 +26,7 @@ router.get('/data', user.getUser);
 // Retorna os favoritos do usuário
 router.get('/favorites', user.getFavorites);
 
+// Adiciona um novo favorito
+router.put('/favorites', user.addFavorite);
+
 module.exports = router;

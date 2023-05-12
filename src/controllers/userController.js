@@ -169,4 +169,32 @@ module.exports = class UserController {
 
     }
   }
+
+  async addFavorite(req, res) {
+    try {
+      const JWT = req.header("Authorization").replace("Bearer ", "");
+      const decodedToken = jwt.verify(JWT, process.env.JWT_SECRET);
+      const user = await User.findOne({ where: { username: decodedToken.id } });
+
+      if (!user) {
+        throw new Error();
+
+      }
+      const { favorites } = req.body;
+
+      if(favorites === user.favorites) {
+        return res.status(400).json({ message: "Sua lista de favoritos não mudou!" });
+
+      }
+
+      user.favorites = favorites;
+      await user.save();
+
+      res.status(200).json({ favorites: user.favorites });
+
+    } catch (error) {
+      res.status(401).json({ error: "Não autorizado!" });
+
+    }
+  }
 }
