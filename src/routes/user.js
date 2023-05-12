@@ -23,4 +23,7 @@ router.delete('/:username', user.delete);
 // Retornar dados do usuário
 router.get('/data', user.getUser);
 
+// Retorna os favoritos do usuário
+router.get('/favorites', user.getFavorites);
+
 module.exports = router;

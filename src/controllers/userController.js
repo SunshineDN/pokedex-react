@@ -64,7 +64,7 @@ module.exports = class UserController {
 
       const token = jwt.sign({ id: user.username }, process.env.JWT_SECRET, { expiresIn: "24h" });
 
-      res.status(200).json({ token });
+      res.status(200).json({ token: token, favorites: user.favorites });
 
     } catch (error) {
       res.status(500).json({ error: "Erro no login: " + error.message });
@@ -144,6 +144,25 @@ module.exports = class UserController {
       }
 
       res.status(200).json({ user });
+
+    } catch (error) {
+      res.status(401).json({ error: "Não autorizado!" });
+
+    }
+  }
+
+  async getFavorites(req, res) {
+    try {
+      const JWT = req.header("Authorization").replace("Bearer ", "");
+      const decodedToken = jwt.verify(JWT, process.env.JWT_SECRET);
+      const user = await User.findOne({ where: { username: decodedToken.id } });
+
+      if (!user) {
+        throw new Error();
+
+      }
+
+      res.status(200).json({ favorites: user.favorites });
 
     } catch (error) {
       res.status(401).json({ error: "Não autorizado!" });
