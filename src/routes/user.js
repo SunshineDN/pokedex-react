@@ -20,4 +20,7 @@ router.patch('/:username', auth, user.update);
 // Deleta o usuário
 router.delete('/:username', user.delete);
 
+// Retornar dados do usuário
+router.get('/data', user.getUser);
+
 module.exports = router;

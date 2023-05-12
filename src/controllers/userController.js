@@ -74,7 +74,6 @@ module.exports = class UserController {
 
   async update(req, res) {
     try {
-      console.log("Rodou")
       const { username, email, password, profileImage, favorites } = req.body;
       const usernameParams = req.params.username;
       const user = await User.findOne({ where: { username: usernameParams } });
@@ -129,6 +128,25 @@ module.exports = class UserController {
 
     } catch (error) {
       res.status(500).json({ error: "Erro no DELETE: " + error.message });
+
+    }
+  }
+
+  async getUser(req, res) {
+    try {
+      const JWT = req.header("Authorization").replace("Bearer ", "");
+      const decodedToken = jwt.verify(JWT, process.env.JWT_SECRET);
+      const user = await User.findOne({ where: { username: decodedToken.id } });
+
+      if (!user) {
+        throw new Error();
+
+      }
+
+      res.status(200).json({ user });
+
+    } catch (error) {
+      res.status(401).json({ error: "Não autorizado!" });
 
     }
   }
