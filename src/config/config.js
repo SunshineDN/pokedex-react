@@ -9,6 +9,6 @@ const Sequelize = require('sequelize');
 //     dialect: 'postgres',
 //   }
 // );
-const sequelize = new Sequelize("postgres://cprxustl:vZfjowvWOhEd4ceLnKElh_C40QoFGxSp@silly.db.elephantsql.com/cprxustl");
+const sequelize = new Sequelize(process.env.DATABASE_URL);
 
 module.exports = sequelize;
