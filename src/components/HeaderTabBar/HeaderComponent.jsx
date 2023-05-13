@@ -11,6 +11,8 @@ const HeaderComponent = () => {
       </Title>
       <LogoutIcon onClick={() => {
         window.localStorage.removeItem("sessionID");
+        window.localStorage.removeItem("favorites");
+        window.localStorage.removeItem("user");
         window.location.reload();
       }} />
     </HeaderContainer>

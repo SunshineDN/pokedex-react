@@ -5,8 +5,10 @@ import PokeCard from "../components/PokeCard/PokeCard";
 import { PokedexCardsContainer, PokedexContainer, PokedexTitle } from "../components/PokeCard/Pokedex"
 import { useRef } from "react";
 import { useEffect } from "react";
+import usersAPI from "../api/usersAPI";
+import { getItemWithExpiration } from "../hooks/handleSession";
 
-const Favorites = ({ favorites, addFavorite, removeFavorite }) => {
+const Favorites = ({ favorites, alter, setAlter, addFavorite, removeFavorite }) => {
   favorites.sort((a, b) => {
     if(a.id > b.id){
       return 1;
@@ -29,6 +31,23 @@ const Favorites = ({ favorites, addFavorite, removeFavorite }) => {
     };
   }, [setIsModal]);
 
+  const handleRemoveAllFavorites = () => {
+    usersAPI.put("favorites", {
+      favorites: [],
+    }, {
+      headers: {
+        Authorization: getItemWithExpiration("sessionID"),
+      },
+    })
+      .then((response) => {
+        console.log('Favorites cleared!\nStatus', response.status);
+        setAlter(!alter);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Container>
       <PokedexContainer style={{margin: "0 auto", padding: "16px"}}>
@@ -48,8 +67,7 @@ const Favorites = ({ favorites, addFavorite, removeFavorite }) => {
             <ConfirmClearFavoritesModalButtonsContainer>
               <ConfirmClearFavoritesModalButton onClick={() => setIsModal(false)}>Cancel</ConfirmClearFavoritesModalButton>
               <ConfirmClearFavoritesModalButton onClick={() => {
-                localStorage.removeItem("favorites");
-                window.location.reload();
+                handleRemoveAllFavorites();
                 setIsModal(false);
               }}>Clear</ConfirmClearFavoritesModalButton>
             </ConfirmClearFavoritesModalButtonsContainer>

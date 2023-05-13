@@ -25,8 +25,15 @@ const TabBarRoutes = () => {
         },
       })
       .then((response) => {
-        setFav(response?.data?.favorites);
-        window.localStorage.setItem("favorites", JSON.stringify(fav));
+        const check = response.data.favorites.map((item) => {
+          return {
+            id: Number(item.id),
+            name: item.name,
+          }
+        });
+        setFav(check);
+        console.log("response in getFavorites(): ", check);
+        window.localStorage.setItem("favorites", JSON.stringify(check));
         return;
         })
         .catch((error) => {
@@ -53,13 +60,13 @@ const TabBarRoutes = () => {
       })
         .then((response) => {
           console.log("response in addFavorite(): ", response.status);
+          setAlter(!alter);
         })
         .catch((error) => {
           console.log("error in addFavorite(): " + error);
         });
     }
     addFavorite();
-    setAlter(!alter);
   }
 
   function handleRemoveFav(pokemonID) {
@@ -72,7 +79,8 @@ const TabBarRoutes = () => {
         },
       })
         .then((response) => {
-          console.log("response in removeFavorite(): ", response.status);
+          console.log("response in removeFavorite(): ", response.data.favorites);
+          setAlter(!alter);
         })
         .catch((error) => {
           console.log("error in removeFavorite(): " + error);
@@ -85,7 +93,7 @@ const TabBarRoutes = () => {
     <Routes>
       <Route element={<ProtectedRoute />}>
         <Route path="/home" element={<Home favorites={fav} addFavorite={handleAddFav} removeFavorite={handleRemoveFav} />} />
-        <Route path="/favorites" element={<Favorites favorites={fav} addFavorite={handleAddFav} removeFavorite={handleRemoveFav} />} />
+        <Route path="/favorites" element={<Favorites favorites={fav} alter={alter} setAlter={setAlter} addFavorite={handleAddFav} removeFavorite={handleRemoveFav} />} />
         <Route path="/adjust" element={<Adjust />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/home/pokemon/:id" element={<PokemonDetails favorites={fav} addFavorite={handleAddFav} removeFavorite={handleRemoveFav} />} />
