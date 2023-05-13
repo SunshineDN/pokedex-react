@@ -63,7 +63,7 @@ const Login = () => {
   return (
     <Container>
       {!isLoading ? (
-        <FormContainer>
+      <FormContainer>
         <FormWrapper onSubmit={(e) => handleSubmit(e)}>
           <FormTitle>Sign in</FormTitle>
           <InputBox>

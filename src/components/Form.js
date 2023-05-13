@@ -153,31 +153,6 @@ export const Input = styled.input`
   }
 `;
 
-export const Select = styled.select`
-  position: relative;
-  width: 100%;
-  padding: 20px 10px 10px;
-  background: transparent;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  color: #222;
-  font-size: 1em;
-  letter-spacing: 0.05em;
-  transition: 0.5s;
-  z-index: 10;
-
-  &:valid ~ ${LabelSpan}, &:focus ~ ${LabelSpan} {
-    color: ${({ theme }) => theme.colors.primary};
-    font-size: 0.75em;
-    transform: translateY(-34px);
-  }
-
-  &:valid ~ ${I}, &:focus ~ ${I} {
-    height: 44px;
-  }
-`;
-
 export const Links = styled.div`
   display: flex;
   justify-content: space-between;
