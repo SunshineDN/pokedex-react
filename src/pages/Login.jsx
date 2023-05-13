@@ -19,7 +19,7 @@ import {
 import Loader from "../components/Loader/Loader";
 import useValidateLogin from "../hooks/useValidateLogin";
 import ErrorComponent from "../components/ErrorBox/ErrorComponent";
-import { setItemWithExpiration } from "../hooks/handleSession";
+import { getItemWithExpiration, setItemWithExpiration } from "../hooks/handleSession";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,6 +37,13 @@ const Login = () => {
   //   }, 3000);
   //   return () => clearTimeout(timer);
   // }, [error]);
+
+  useEffect(() => {
+    const token = getItemWithExpiration("sessionID");
+    if (token) {
+      navigate("/main/home");
+    }
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();

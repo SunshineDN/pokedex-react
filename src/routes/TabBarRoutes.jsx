@@ -16,7 +16,7 @@ const TabBarRoutes = () => {
   const [alter, setAlter] = useState(false);
   
   useEffect(() => {
-    console.log("Pokemons carregados")
+    console.log("Favoritos carregados!")
     const token = getItemWithExpiration("sessionID");
     const getFavorites = async () => {
       await usersAPI.get("favorites", {
@@ -32,7 +32,7 @@ const TabBarRoutes = () => {
           }
         });
         setFav(check);
-        console.log("response in getFavorites(): ", check);
+        // console.log("response in getFavorites(): ", check);
         window.localStorage.setItem("favorites", JSON.stringify(check));
         return;
         })
@@ -45,8 +45,9 @@ const TabBarRoutes = () => {
   }, [alter]);
 
   function handleAddFav(pokemon) {
+    // console.log("Adicionado pokemonID:", pokemon.id)
     if(fav.find((item) => item.id.toString() === pokemon.id.toString())){
-      console.log("Retornou, já existe")
+      // console.log("Retornou, já existe")
       return;
     }
     
@@ -58,8 +59,8 @@ const TabBarRoutes = () => {
           Authorization: token,
         },
       })
-        .then((response) => {
-          console.log("response in addFavorite(): ", response.status);
+        .then(() => {
+          // console.log("response in addFavorite(): ", response.status);
           setAlter(!alter);
         })
         .catch((error) => {
@@ -70,6 +71,7 @@ const TabBarRoutes = () => {
   }
 
   function handleRemoveFav(pokemonID) {
+    // console.log("Removido pokemonID:", pokemonID)
     setFav(fav.filter((item) => item.id !== pokemonID))
     const token = getItemWithExpiration("sessionID");
     const removeFavorite = async () => {
@@ -78,8 +80,8 @@ const TabBarRoutes = () => {
           Authorization: token,
         },
       })
-        .then((response) => {
-          console.log("response in removeFavorite(): ", response.data.favorites);
+        .then(() => {
+          // console.log("response in removeFavorite(): ", response.data.favorites);
           setAlter(!alter);
         })
         .catch((error) => {

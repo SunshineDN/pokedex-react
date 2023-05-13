@@ -13,10 +13,8 @@ const PokemonHeader = ({ name, id, isFavorite, setIsFavorite, addFavorite, remov
         id: Number(id),
         name: name
       })
-      console.log("Adicionou")
     } else {
       removeFavorite(Number(id))
-      console.log("Removeu")
     }
   }
 

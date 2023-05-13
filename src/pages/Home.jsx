@@ -90,7 +90,7 @@ const Home = ({ favorites, addFavorite, removeFavorite }) => {
 
     // remove o event listener quando o componente é desmontado
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [page]);
+  });
 
   useEffect(() => {
     const getPokemons = async () => {
