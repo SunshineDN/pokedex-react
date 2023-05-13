@@ -41,4 +41,8 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Flexo Regular', sans-serif;
         font-display: swap;
     }
+
+    body {
+        background-color: ${({ theme }) => theme.colors.background};
+    }
 `;

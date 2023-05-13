@@ -29,6 +29,14 @@ const PokemonDetails = ({ favorites, addFavorite, removeFavorite }) => {
   const [isFavorite, setIsFavorite] = useState(favorites.filter((item) => item.id.toString() === id.toString()).length > 0 ? true : false);
   
   useEffect(() => {
+    if (abilityModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [abilityModal]);
+
+  useEffect(() => {
     setIsFavorite(favorites.filter((item) => item.id.toString() === id.toString()).length > 0 ? true : false);
   }, [favorites, id])
 

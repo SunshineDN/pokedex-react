@@ -5,10 +5,10 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
   display: flex;
   justify-content: center;
-  align-items: center;
   height: 100vh;
-
+  
   & > div {
+    margin: auto;
     height: 830px;
 
     &::before {

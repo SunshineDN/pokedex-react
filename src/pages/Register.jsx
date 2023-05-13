@@ -27,6 +27,10 @@ import { getItemWithExpiration } from "../hooks/handleSession";
 import Loader from "../components/Loader/Loader";
 import ErrorComponent from "../components/ErrorBox/ErrorComponent";
 
+import boy1 from "../assets/img/boy_profile01.png"
+import boy2 from "../assets/img/boy_profile02.png"
+import girl1 from "../assets/img/girl_profile01.png"
+import girl2 from "../assets/img/girl_profile02.png"
 
 const Register = () => {
   const [error, setError] = useState("");
@@ -70,16 +74,16 @@ const Register = () => {
             <InputRadioTitle>Choose your profile image</InputRadioTitle>
             <InputRadioBox onChange={(e) => setUser({...user, profileImage: e.target.value})}>
               <InputRadio id="boy_profile01" type="radio" name="profileImage" defaultChecked value={"boy_profile01.png"}/>
-              <LabelRadio htmlFor="boy_profile01" img={"/pokedex-react/src/assets/img/boy_profile01.png"} ></LabelRadio>
+              <LabelRadio htmlFor="boy_profile01" img={boy1} ></LabelRadio>
 
               <InputRadio id="girl_profile01" type="radio" name="profileImage" value={"girl_profile01.png"}/>
-              <LabelRadio htmlFor="girl_profile01" img={"/pokedex-react/src/assets/img/girl_profile01.png"} ></LabelRadio>
+              <LabelRadio htmlFor="girl_profile01" img={boy2} ></LabelRadio>
             
               <InputRadio id="boy_profile02" type="radio" name="profileImage" value={"boy_profile02.png"}/>
-              <LabelRadio htmlFor="boy_profile02" img={"/pokedex-react/src/assets/img/boy_profile02.png"} ></LabelRadio>
+              <LabelRadio htmlFor="boy_profile02" img={girl1} ></LabelRadio>
               
               <InputRadio id="girl_profile02" type="radio" name="profileImage" value={"girl_profile02.png"}/>
-              <LabelRadio htmlFor="girl_profile02" img={"/pokedex-react/src/assets/img/girl_profile02.png"} ></LabelRadio>
+              <LabelRadio htmlFor="girl_profile02" img={girl2} ></LabelRadio>
               
             </InputRadioBox>
           </InputRadioWrapper>

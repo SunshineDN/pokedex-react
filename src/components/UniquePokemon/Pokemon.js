@@ -463,7 +463,7 @@ export const PokemonDetailsInfoDataAbilitiesModalContainer = styled.div`
 
 export const PokemonDetailsInfoDataAbilitiesModalWrapper = styled.div`
     margin: 0 auto;
-    height: 50%;
+    height: fit-content;
     max-width: 368px;
     position: relative;
     z-index: 9999;
@@ -486,7 +486,17 @@ export const PokemonDetailsInfoDataAbilitiesModalTitle = styled.h2`
     font-weight: 700;
     text-align: left;
     text-transform: capitalize;
-    margin-bottom: 16px;
+`;
+
+export const PokemonDetailsInfoDataAbilitiesModalValues = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    &:nth-child(2) {
+        margin-top: 47px;
+    }
 `;
 
 export const PokemonDetailsInfoDataAbilitiesModalName = styled.h2`
@@ -496,13 +506,6 @@ export const PokemonDetailsInfoDataAbilitiesModalName = styled.h2`
     text-align: left;
     text-transform: capitalize;
     margin-bottom: 16px;
-`;
-
-export const PokemonDetailsInfoDataAbilitiesModalValues = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
 `;
 
 export const PokemonDetailsInfoDataAbilitiesModalClose = styled(AiFillCloseCircle)`
