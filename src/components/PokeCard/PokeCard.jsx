@@ -1,11 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import handleChangeID from "../../hooks/handleChangeID"
 import { LinkPokemon, PokedexCard, PokedexCardId, PokedexCardImg, PokedexCardName, PokedexFavorite } from "./Pokedex"
 
 const PokeCard = ({ id, name, favorites, addFavorite, removeFavorite }) => {
   //Verifica se o pokemon é favorito
-  const [isFavorite, setIsFavorite] = useState(favorites.filter((item) => item.id.toString() === id.toString()).length > 0 ? true : false)
+  const [isFavorite, setIsFavorite] = useState(false)
+  
+  useEffect(() => {
+    const favoriteFind = favorites.find((favorite) => favorite.id.toString() === id.toString());
+    if(favoriteFind) {
+      setIsFavorite(true);
+    }
+  }, [favorites, id])
 
   const handleClick = () => {
     setIsFavorite(!isFavorite);

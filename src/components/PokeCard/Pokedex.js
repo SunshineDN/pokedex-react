@@ -26,7 +26,6 @@ export const PokedexFavorite = styled(MdFavorite)`
     position: absolute;
     top: 8px;
     right: 8px;
-    transition: all 0.3s ease-in-out;
     z-index: 4;
 
     @keyframes pop {

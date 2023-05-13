@@ -13,8 +13,10 @@ import { getItemWithExpiration } from "../hooks/handleSession";
 
 const TabBarRoutes = () => {
   const [fav, setFav] = useState([]);
+  const [alter, setAlter] = useState(false);
   
   useEffect(() => {
+    console.log("Pokemons carregados")
     const token = getItemWithExpiration("sessionID");
     const getFavorites = async () => {
       await usersAPI.get("favorites", {
@@ -33,7 +35,7 @@ const TabBarRoutes = () => {
         });
     };
     getFavorites();
-  }, [fav]);
+  }, [alter]);
 
   function handleAddFav(pokemon) {
     if(fav.find((item) => item.id.toString() === pokemon.id.toString())){
@@ -57,6 +59,7 @@ const TabBarRoutes = () => {
         });
     }
     addFavorite();
+    setAlter(!alter);
   }
 
   function handleRemoveFav(pokemonID) {
