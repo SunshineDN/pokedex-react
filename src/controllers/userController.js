@@ -82,6 +82,21 @@ module.exports = class UserController {
         return res.status(404).json({ message: "Usuário não encontrado!" });
 
       }
+      if(username !== usernameParams) {
+        const userExists = await User.findOne({ where: { username } });
+        if(userExists) {
+          return res.status(400).json({ message: "Username já cadastrado!" });
+
+        }
+      }
+      if(email !== user.email) {
+        const emailExists = await User.findOne({ where: { email } });
+        if(emailExists) {
+          return res.status(400).json({ message: "Email já cadastrado!" });
+
+        }
+      }
+
       if (username) {
         user.username = username;
 
@@ -98,7 +113,7 @@ module.exports = class UserController {
           }
           const hashedPassword = await bcrypt.hash(password, 10);
           user.password = hashedPassword;
-          
+
         } else {
           return res.status(401).json({ message: "Confirme a senha para atualizar!" });
 
