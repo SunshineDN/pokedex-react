@@ -100,6 +100,7 @@ module.exports = class UserController {
       if (username) {
         user.username = username;
 
+
       }
       if (email) {
         user.email = email;
@@ -128,6 +129,11 @@ module.exports = class UserController {
 
       }
       await user.save();
+      if (username) {
+        const token = jwt.sign({ id: user.username }, process.env.JWT_SECRET, { expiresIn: "24h" });
+        return res.status(200).json({ token: token, message: "Usuário atualizado com sucesso!" });
+
+      }
       res.status(200).json({ message: "Usuário atualizado com sucesso!" });
 
     } catch (error) {
