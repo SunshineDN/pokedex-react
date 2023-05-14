@@ -20,10 +20,16 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import usersAPI from "../../api/usersAPI";
 import { getItemWithExpiration } from "../../hooks/handleSession";
+import boy1 from "../../assets/img/boy_profile01.png";
+import boy2 from "../../assets/img/boy_profile02.png";
+import girl1 from "../../assets/img/girl_profile01.png";
+import girl2 from "../../assets/img/girl_profile02.png";
 
 const ProfileHeader = ({ username, profileImage, setProfileImage }) => {
   const [modal, setModal] = useState(false);
   const modalRef = useRef(null);
+  console.log("Perfil menino 01: ", boy1)
+  console.log(boy1)
 
   const [profileImageState, setProfileImageState] = useState("");
   const [success, setSuccess] = useState("");
@@ -89,16 +95,16 @@ const ProfileHeader = ({ username, profileImage, setProfileImage }) => {
               <InputRadioTitle>Profile image</InputRadioTitle>
               <InputRadioBox onChange={e => setProfileImageState(e.target.value)}>
                 <InputRadio type="radio" name="profileImage" id="boy_profile01" value="boy_profile01.png" />
-                <LabelRadio img={"/src/assets/img/boy_profile01.png"} htmlFor="boy_profile01"></LabelRadio>
+                <LabelRadio img={boy1} htmlFor="boy_profile01"></LabelRadio>
                 
                 <InputRadio type="radio" name="profileImage" id="boy_profile02" value="boy_profile02.png" />
-                <LabelRadio img={"/src/assets/img/boy_profile02.png"} htmlFor="boy_profile02"></LabelRadio>
+                <LabelRadio img={boy2} htmlFor="boy_profile02"></LabelRadio>
                 
                 <InputRadio type="radio" name="profileImage" id="girl_profile01" value="girl_profile01.png" />
-                <LabelRadio img={"/src/assets/img/girl_profile01.png"} htmlFor="girl_profile01"></LabelRadio>
+                <LabelRadio img={girl1} htmlFor="girl_profile01"></LabelRadio>
                 
                 <InputRadio type="radio" name="profileImage" id="girl_profile02" value="girl_profile02.png" />
-                <LabelRadio img={"/src/assets/img/girl_profile02.png"} htmlFor="girl_profile02"></LabelRadio>
+                <LabelRadio img={girl2} htmlFor="girl_profile02"></LabelRadio>
               </InputRadioBox>
             </InputRadioWrapper>
             <ProfileUserInfoButton onClick={() => handleSendProfileImage()} disabled={profileImageState === "" || profileImage === profileImageState}>Change</ProfileUserInfoButton>
