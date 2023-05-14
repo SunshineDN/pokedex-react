@@ -74,7 +74,7 @@ module.exports = class UserController {
 
   async update(req, res) {
     try {
-      const { username, email, password, profileImage, favorites } = req.body;
+      const { username, email, password, confirmPassword, profileImage, favorites } = req.body;
       const usernameParams = req.params.username;
       const user = await User.findOne({ where: { username: usernameParams } });
 
@@ -91,9 +91,18 @@ module.exports = class UserController {
 
       }
       if (password) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        user.password = hashedPassword;
+        if (confirmPassword) {
+          if (password !== confirmPassword) {
+            return res.status(401).json({ message: "As senhas não coincidem!" });
+  
+          }
+          const hashedPassword = await bcrypt.hash(password, 10);
+          user.password = hashedPassword;
+          
+        } else {
+          return res.status(401).json({ message: "Confirme a senha para atualizar!" });
 
+        }
       }
       if (profileImage) {
         user.profileImage = profileImage;
