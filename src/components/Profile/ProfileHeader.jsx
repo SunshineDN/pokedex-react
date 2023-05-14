@@ -28,12 +28,17 @@ import girl2 from "../../assets/img/girl_profile02.png";
 const ProfileHeader = ({ username, profileImage, setProfileImage }) => {
   const [modal, setModal] = useState(false);
   const modalRef = useRef(null);
-  console.log("Perfil menino 01: ", boy1)
-  console.log(boy1)
 
   const [profileImageState, setProfileImageState] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+
+  const verifyImage = (name) => {
+    if (name === "boy_profile01.png") return boy1;
+    if (name === "boy_profile02.png") return boy2;
+    if (name === "girl_profile01.png") return girl1;
+    if (name === "girl_profile02.png") return girl2;
+  }
 
   useEffect(() => {
     const handleClickOutsideModal = (event) => {
@@ -82,7 +87,7 @@ const ProfileHeader = ({ username, profileImage, setProfileImage }) => {
       {success !== "" && <SuccessComponent component={"profile"} message={success} />}
       {error !== "" && <ErrorComponent component={"profile"} message={error} />}
       <ProfileHeaderImage></ProfileHeaderImage>
-      <ProfileHeaderUserImage img={"/src/assets/img/" + profileImage}>
+      <ProfileHeaderUserImage img={verifyImage(profileImage)}>
         <ProfileHeaderUserImageEdit>
           <ProfileHeaderUserImageEditIcon onClick={() => setModal(true)} />
         </ProfileHeaderUserImageEdit>
