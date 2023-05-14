@@ -30,6 +30,9 @@ export const dark = () => ({
         favorite: "#C22E28",
         errorBox: "#f8d7da",
         errorText: "#721c24",
+        successBox: "#d4edda",
+        successText: "#155724",
+        imageBorder: "#D9D9D9",
         types: {
             normal: { bg: "#A8A77A", color: "#1A1A1A", icon: Normal },
             fire: { bg: "#EE8130", color: "#1A1A1A", icon: Fire },

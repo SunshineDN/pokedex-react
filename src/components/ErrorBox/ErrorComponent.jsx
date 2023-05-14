@@ -1,12 +1,21 @@
 /* eslint-disable react/prop-types */
-import { ErrorBox, ErrorIcon, ErrorText } from "./Error"
+import { ErrorBox, ErrorBoxRelative, ErrorIcon, ErrorText } from "./Error"
 
-const ErrorComponent = ({ message }) => {
+const ErrorComponent = ({ message, component }) => {
   return (
-    <ErrorBox>
-      <ErrorIcon />
-      <ErrorText>{message}</ErrorText>
-    </ErrorBox>
+    <>
+      {component !== "profile" ? (
+        <ErrorBox>
+          <ErrorIcon />
+          <ErrorText>{message}</ErrorText>
+        </ErrorBox>
+      ) : (
+        <ErrorBoxRelative>
+          <ErrorIcon />
+          <ErrorText>{message}</ErrorText>
+        </ErrorBoxRelative>
+      )}
+    </>
   )
 }
 

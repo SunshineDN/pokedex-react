@@ -45,6 +45,10 @@ const Home = ({ favorites, addFavorite, removeFavorite }) => {
         })
         .catch((error) => {
           console.log("error in getUser(): " + error);
+          if (error.response.data.error === "Não autorizado!") {
+            window.localStorage.removeItem("sessionID");
+            window.location.reload();
+          }
         });
     };
     getUser();

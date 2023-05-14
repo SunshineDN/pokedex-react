@@ -37,7 +37,11 @@ const TabBarRoutes = () => {
         return;
         })
         .catch((error) => {
-          console.log("error in getFavorites(): " + error);
+          console.log("error in getFavorites(): " + error.response.data);
+          if (error.response.data.error === "Não autorizado!"){
+            window.localStorage.removeItem("sessionID");
+            window.location.reload();
+          }
           return;
         });
     };
