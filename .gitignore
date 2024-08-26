@@ -1,7 +1,5 @@
 node_modules
 .env
 readme.md
-Dockerfile
-docker-compose.yml
-.dockerignore
+data
 ```
