@@ -6,4 +6,9 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
   base: '/pokedex-react/',
   plugins: [svgr(), react()],
+  resolve: {
+    alias: {
+      'https': 'agent-base'
+    }
+  }
 })
