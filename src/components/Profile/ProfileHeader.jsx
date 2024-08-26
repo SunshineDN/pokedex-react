@@ -77,8 +77,8 @@ const ProfileHeader = ({ username, profileImage, setProfileImage }) => {
       setModal(false);
     })
     .catch((error) => {
-      setError(error.response.data.message);
-      console.log(error.response.data)
+      setError(error?.response?.data?.message);
+      console.log(error?.response?.data)
     })
   }
 

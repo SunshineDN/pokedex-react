@@ -71,8 +71,8 @@ const ProfileDataEdit = ({ handleChangeUsernameEmail, username, email }) => {
       setIsDisabled(true);
     })
     .catch((error) => {
-      setError(error.response.data.message);
-      console.log(error.response.data)
+      setError(error?.response?.data?.message);
+      console.log(error?.response?.data)
     });
   };
 
@@ -96,8 +96,8 @@ const ProfileDataEdit = ({ handleChangeUsernameEmail, username, email }) => {
       handleChangeUsernameEmail(newUser.username, newUser.email);
     })
     .catch((error) => {
-      setError(error.response.data.message);
-      console.log(error.response.data)
+      setError(error?.response?.data?.message);
+      console.log(error?.response?.data)
     });
   };
 
