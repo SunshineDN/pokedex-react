@@ -7,9 +7,7 @@ const sequelize = require('./src/config/config');
 
 const PORT = process.env.EXTERNAL_PORT || 3000;
 
-app.use(cors({
-  origin: ['https://sunshinedn.github.io', 'http://localhost:3000', 'http://localhost:5173', 'http://localhost:8000', 'http://localhost:8001'],
-}));
+app.use(cors());
 app.use(express.json());
 app.use('/users', userRouter);
 
