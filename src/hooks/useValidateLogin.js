@@ -6,7 +6,6 @@ const useValidateLogin = async (email, password) => {
     password,
   })
     .then((response) => {
-      console.log(response)
       return {
         data: response.data.token,
         status: response.status,
