@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: pokedex-db
     ports:
-      - "5432:5432"
+      - "8002:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
 
