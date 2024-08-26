@@ -16,7 +16,7 @@ const useValidateLogin = async (email, password) => {
       console.log(error)
       return {
         data: error?.response?.data?.message || 'An error occurred',
-        status: error.response.status || 500,
+        status: error?.response?.status || 500,
       };
     });
   return response;
