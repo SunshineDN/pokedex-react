@@ -18,8 +18,8 @@ const Profile = () => {
         setUser(response.data.user);
       })
       .catch((error) => {
-        console.log("Error in getUserData(): " + error.response.data.error);
-        if (error.response.data.error === "Não autorizado!") {
+        console.log("Error in getUserData(): " + error.response.data.message);
+        if (error.response.data.message === "Não autorizado!") {
           window.localStorage.removeItem("sessionID");
           window.location.reload();
         }
