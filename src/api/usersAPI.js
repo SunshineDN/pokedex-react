@@ -1,8 +1,8 @@
 import axios from "axios";
 import https from "https";
 
-https.globalAgent.options.rejectUnauthorized = false
 const usersAPI = axios.create({
+  httpsAgent: new https.Agent({ rejectUnauthorized: false }),
   baseURL: "http://aiatende.com:8001/users/",
 });
 
